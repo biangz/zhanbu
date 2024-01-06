@@ -5,7 +5,7 @@ import { useAuthStore } from '@/store'
 import { SpwsClient } from '@/api';
 import ChatItem from './components/chatItem.vue';
 const userStore = useAuthStore()
-const ws = null;
+var ws = null;
 
 // 用户选择的数字
 const userSelectNumber = ref(0);
@@ -24,11 +24,12 @@ onMounted(() => {
 
 const createChat = () => {
     // let wss = import.meta.env.VITE_APP_WSS_API + '/api/v1/ws/chat'
-    let wss = 'ws://eli-api.fenus.xyz/api/v1/ws/chat'
+    // let wss = 'wss://eli-api.fenus.xyz/api/v1/ws/chat'
+    let wss = 'ws://localhost:8088/api/v1/ws/chat'
     ws = new SpwsClient(wss)
     
     ws.setOnMessageCallback((event) => {
-
+        console.log(event);
     })
 }
 
@@ -83,6 +84,22 @@ const handleSendMessage = () => {
     }
 
     showError.value = false
+
+    // 构建要发送的消息对象，匹配服务器的Request结构体
+    const messageToSend = {
+        type: 'chat_follow', // 根据需要更改
+        method: 'chatGPT', // 根据需要更改
+        timestamp: Date.now(),
+        ascode: '0001', //狐仟秋 
+        lan: 'zh-CN', //
+        devid: '1', // 如果有设备ID，请替换
+        userid: userStore.user?.id || 0,
+        data: sendMessage.value,
+    }
+
+    // 发送消息到服务器
+    ws.send(JSON.stringify(messageToSend))
+
     chatList.value.push({
         isAi: false,
         content: sendMessage.value,
