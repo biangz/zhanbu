@@ -1,7 +1,8 @@
 :root {
   --header-height: 120px;
-  --bg-theme-color: #ffffff;
-  --text-color: rgba(255, 255, 255, 0.87);
+  --bg-theme-color: #000000;
+  --bg-grey: #383838;
+  --text-color: #BFBFBF;
 }
 
 html {
@@ -16,7 +17,7 @@ html, body, * {
 
 @media (min-width: 768px) {
   :root {
-    --header-height: 80px;
+    --header-height: 100px;
   }
 }
 

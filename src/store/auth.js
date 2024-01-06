@@ -1,20 +1,62 @@
 import { defineStore } from 'pinia'
+import { getToken, setToken, removeToken } from '@/utils'
+import { googleLogin, loginUserInfo } from '@/api'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({ 
-        count: 0,
-        address: null,
+        _googleUserInfo: null,
+
+        _token: getToken() || '',
+        _user: null,
     }),
     getters: {
-        double: (state) => state.count * 2,
-        address: state => state.address
+        googleUserInfo: (state) => state._googleUserInfo,
+        token: state => state._token,
+        user: state => state._user,
     },
     actions: {
-        increment() {
-            this.count++
+        setToken(t) {
+            this._token = t
         },
-        setAddress(a) {
-            console.log('a::', a)
+
+        setGoogleUser(info) {
+            this._googleUserInfo = info
+        },
+
+        userLoginToken(id_token) {
+            return new Promise((resolve, reject) => {
+                googleLogin({
+                    idToken: id_token
+                }).then(res => {
+                    if (res.code == 200) {
+                        this._token = res.data.token
+                        setToken(this._token)
+                        resolve(res)
+                    } else {
+                        reject()
+                        disconnect()
+                    }
+                })
+            })
+        },
+        
+        userLoginInfo() {
+            return new Promise((resolve, reject) => {
+                loginUserInfo().then(res => {
+                    if (res.code == 200) {
+                        this._user = res.data.user
+                        resolve(res)
+                    } else {
+                        reject()
+                        disconnect()
+                    }
+                })
+            })  
+        },
+        Logout() {
+            removeToken()
+            this._token = ''
+            this._user = null
         }
     },
 })
