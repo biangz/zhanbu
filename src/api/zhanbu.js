@@ -12,13 +12,13 @@ export function calculateFourPillars(params) {
     });
 }
 
-export function calculateShenKe(post = {}) {
+export function calculateShenKe(data = {}) {
     return service({
         url: `/api/v1/eli/calculateShenKe`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        method: "get",
+        method: "post",
         data: qs.stringify(data),
     });
 }

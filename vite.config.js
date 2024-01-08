@@ -66,7 +66,7 @@ export default defineConfig({
       },
       '/localwss': {
         // target: "http://192.168.10.55:8888",
-        target: "https://eli-api.fenus.xyz",
+        target: "wss://eli-api.fenus.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },

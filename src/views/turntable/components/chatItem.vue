@@ -4,6 +4,7 @@ import { isvueComponent } from '@/utils';
 import MyTypeIt from '@/components/TypeIt.vue';
 import Qike from './qike.vue';
 import SelectDifen from './selectDifen.vue';
+import Loading from '@/components/Loading.vue'
 const emit = defineEmits(['change', 'select', 'finish'])
 const props = defineProps({
     item: {
@@ -31,7 +32,9 @@ const handleFinish = (e) => {
         <template v-if="props.item.isAi">
             <select-difen v-if="props.item.type == 2" @change="getSelectNumber"  />
             <qike v-else-if="props.item.type == 3" :difen="props.item.difen" @finish="handleFinish"/>
-            <my-type-it v-else :class-name="'chat-item' + props.item.createTime" :values="[props.item.content]" />
+            <div class="chat-item-text" v-else-if="props.item.type == 'loading'"><Loading /></div>
+            <div class="chat-item-text" v-else>{{ props.item.content }}</div>
+            <!-- <my-type-it v-else class="chat-item-text" :class-name="'chat-item' + props.item.timestamp" :values="[props.item.content]" /> -->
         </template>
         <div v-else class="chat-item-text">
             <p>{{ item.content }}</p>
@@ -41,9 +44,8 @@ const handleFinish = (e) => {
 
 <style lang="less" scoped>
 .chat-item {
-    // padding: 14px 18px;
     margin: 8px 0;
-    font-size: 24px;
+    font-size: 20px;
     box-shadow: 0 8px 10px rgba(0,0,0,0.2);
     --radius: 22px;
     overflow: hidden;
@@ -62,7 +64,7 @@ const handleFinish = (e) => {
     }
 
     .chat-item-text {
-        padding: 16px 24px;
+        padding: 10px 16px;
     }
 }
 </style>

@@ -21,6 +21,7 @@ export class SpwsClient {
     }
 
     close() {
+        console.log('close:::::', this.websocket)
         if (this.websocket) {
             this.websocket.close();
         }
@@ -49,9 +50,9 @@ export class SpwsClient {
 
     onClose(event) {
         if (event.wasClean) {
-        console.log(`Closed cleanly, code=${event.code}, reason=${event.reason}`)
+            console.log(`Closed cleanly, code=${event.code}, reason=${event.reason}`)
         } else {
-        console.error('Connection died')
+            console.error('Connection died')
         }
         let rett = setInterval(() => {
             try {

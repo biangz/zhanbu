@@ -770,10 +770,9 @@ let d = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '
 <style scoped lang="less">
 .qike-main {
     min-width: 10rem;
-    font-size: 30px;
     padding: 18px;
     h5 {
-        margin: 16px 0;
+        margin: 6px 0;
         > span {
             font-weight: bold;
         }
