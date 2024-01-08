@@ -13,6 +13,8 @@ const userSelectNumber = ref(0);
 const sendMessage = ref('')
 const showError = ref(false)
 const isSend = ref(false)
+const calId = ref(0)
+
 
 // 聊天列表
 const chatList = reactive({
@@ -102,6 +104,9 @@ const qikeFinish = (e) => {
     // 0 人元 1 贵神 2 神将 3 地分
     calculateShenKe({
         dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`
+    }).then(res => {
+        console.log('::::>>', res)
+        calId.value = res.data.cal_id
     })
 }
 
@@ -124,6 +129,7 @@ const handleSendMessage = () => {
         devid: '1', // 如果有设备ID，请替换
         userid: userStore.user?.id || 0,
         data: sendMessage.value,
+        calid: calId.value
     }
 
     // 发送消息到服务器
