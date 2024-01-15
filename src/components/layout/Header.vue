@@ -1,27 +1,16 @@
 <template>
     <header class="stiky top-0 w-full flex items-center md:px-3">
-        <Logo class="logo block w-7" @click="$router.push('/')" />
-        <div class="flex items-center gap-x-4 ml-auto">
-            <!-- <a-button class="logo-button" type="primary" shape="round">Login</a-button> -->
-            <!-- <div v-show="!authStore.token" class="logo-button" id="google-login"></div>
-            <div v-show="authStore.token">
-                <a-dropdown @select="handleSelect">
-                    <a-button type="primary">Logged in</a-button>
-                    <template #content>
-                        <a-doption :value="'logout'">Logout</a-doption>
-                    </template>
-                </a-dropdown>
-            </div> -->
+        <!-- <Logo class="logo block w-7" @click="$router.push('/')" /> -->
+        <!-- <div class="flex items-center gap-x-4 ml-auto">
             <a-dropdown trigger="hover" v-if="authStore.user">
                 <button class="login-button">{{ authStore.user.name }}</button>
-                <!-- <a-button type="primary" shape="round">{{ authStore.user.name }}</a-button> -->
                 <template #content>
                     <a-doption @click="signOut">Logout</a-doption>
                 </template>
             </a-dropdown>
             <button v-show="!authStore.user" class="login-button" id="customBtn">Login</button>
             
-        </div>
+        </div> -->
     </header>
 </template>
 
@@ -80,23 +69,6 @@ const signOut = () => {
 
 onMounted(async () => {
 
-    // window.onload = function() {
-    //     window.google.accounts.id.initialize({
-    //         client_id: "890462275164-cutk7ea593vqqv5i12rq0q4gsbnufed1.apps.googleusercontent.com",
-    //         callback: handleCredentialResponse
-    //     });
-    //     window.google.accounts.id.renderButton(
-    //         document.getElementById("google-login"),
-    //         { theme: "filled_black", size: "medium", shape: "pill" }  // customization attributes
-    //     );
-    //     // window.google.accounts.id.prompt((notification) => {
-    //     //     console.log('>>>>notification:', notification)
-    //     //     if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-    //     //         // continue with another identity provider.
-    //     //     }
-    //     // }); // also display the One Tap dialog
-    // }
-
     const newGapi = await loadGapiInsideDOM();
 
     if (newGapi) {
@@ -114,6 +86,11 @@ const handleSelect = (v) => {
 header {
     box-sizing: border-box;
     height: var(--header-height);
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20));
+    position: relative;
+    // box-shadow: 0px 0px 82px 0px rgba(150, 170, 243, 0.60);
+    backdrop-filter: blur(14px);
+    object-fit: cover;
 
     .login-button {
         font-size: 24px;

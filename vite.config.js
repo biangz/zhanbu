@@ -32,7 +32,7 @@ export default defineConfig({
       less: {
         modifyVars: {
           'arcoblue-6': '#C5A75A',
-          'orange-6': '#000000',
+          'orange-6': '#66F132',
           // 'color-primary-6': '#13c2c2',
           // 'color-primary-6': `rgb(var(~'@{arco-cssvars-prefix}-green-6'))`
         },
@@ -56,10 +56,10 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: 5174,
     proxy: {
       '/localapi': {
-        // target: "http://192.168.10.55:8888",
+        // target: "http://10.17.16.114:8088",
         target: "https://eli-api.fenus.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')

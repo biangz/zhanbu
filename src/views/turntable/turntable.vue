@@ -3,6 +3,8 @@
 import { reactive, ref, markRaw, onMounted } from 'vue';
 import { useAuthStore } from '@/store'
 import { SpwsClient, calculateShenKe } from '@/api';
+import { loadGapiInsideDOM, loadAuth2 } from 'gapi-script';
+import Decimal from 'decimal.js';
 import ChatItem from './components/chatItem.vue';
 const userStore = useAuthStore()
 const chatroomContent = ref(null)
@@ -21,11 +23,17 @@ const chatList = reactive({
     list: []
 })
 
-onMounted(() => {
+onMounted(async () => {
     getHistory()
 
     // 创建聊天室
     createChat()
+
+    const newGapi = await loadGapiInsideDOM();
+
+    if (newGapi) {
+        setAuth2()
+    }
 })
 
 const createChat = () => {
@@ -54,8 +62,11 @@ const createChat = () => {
                     content: msg,
                 })
             }
+        } else if (ret.code == 201 || ret.code == 202 || ret.code ==203) { // code 2001 2002 2003
+            isSend.value = false
+        } else {
+            console.log('error')
         }
-        isSend.value = false
         elementScroll()
     })
 }
@@ -73,6 +84,11 @@ const pushChatList = (obj) => {
 // 修改聊天内容
 const changeChatListItem = (i, obj) => {
     chatList.list[i] = { ...obj, type: '' }
+}
+
+// 删除聊天记录
+const deleteChatList = (i) => {
+    chatList.list.splice(1, 2)
 }
 
 // scroll smooth
@@ -103,10 +119,13 @@ const qikeFinish = (e) => {
     })
     // 0 人元 1 贵神 2 神将 3 地分
     calculateShenKe({
-        dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`
+        dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
+        kongwang: e.requestParamsKW.join(','),
+        rumu: e.requestParamsRumu.join(',')
     }).then(res => {
-        console.log('::::>>', res)
-        calId.value = res.data.cal_id
+        if (res.code == 200) {
+            calId.value = new Decimal(res.data.cal_id)
+        }
     })
 }
 
@@ -118,6 +137,8 @@ const handleSendMessage = () => {
     }
 
     showError.value = false
+
+    if (isSend.value) return;
 
     // 构建要发送的消息对象，匹配服务器的Request结构体
     const messageToSend = {
@@ -153,6 +174,47 @@ const handleSendMessage = () => {
 }
 
 
+const setAuth2 = async () => {
+    const auth2 = await loadAuth2(gapi, import.meta.env.VITE_GOOGLE_CLIENT, '')
+    if (auth2.isSignedIn.get()) {
+        updateUser(auth2.currentUser.get())
+    } else {
+        attachSignin(document.getElementById('customBtn'), auth2);
+    }
+}
+
+const updateUser = async (currentUser) => {
+    const name = currentUser.getBasicProfile().getName();
+    const profileImg = currentUser.getBasicProfile().getImageUrl();
+    userStore.setGoogleUser(currentUser)
+
+    if (!userStore.token) {
+        // 获取 token
+        await userStore.userLoginToken(currentUser.getAuthResponse().id_token).then(async () => {
+            if (!userStore.user) {
+                await userStore.userLoginInfo()
+            }
+        })
+    }
+};
+
+const attachSignin = (element, auth2) => {
+    auth2.attachClickHandler(element, {},
+        (googleUser) => {
+            setAuth2()
+        }, (error) => {
+            console.log(JSON.stringify(error))
+        });
+};
+
+const signOut = () => {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+        userStore.Logout()
+    });
+}
+
+
 </script>
 
 <template>
@@ -161,10 +223,11 @@ const handleSendMessage = () => {
         <div class="inner gap-y-2">
 
             <div class="chat-title flex items-center w-full py-2">
-                <i @click="$router.go(-1)" class="icon i-solar-map-arrow-left-bold"></i>
-                <div class="title-box flex-1 ml-2">
-                    <p class="font-bold">{{ userStore.user?.name ? userStore.user.name : 'nickname' }}</p>
-                    <p class="mt-1 text-[#9E9587]">{{ userStore.user?.email ? userStore.user.email : 'email-email' }}</p>
+                <!-- <i @click="$router.go(-1)" class="icon i-solar-map-arrow-left-bold mr-2"></i> -->
+                <div class="title-box flex-1">
+                    <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
+                    <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
+                    <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
                 </div>
                 <i class="icon i-solar-share-bold"></i>
             </div>
@@ -187,7 +250,7 @@ const handleSendMessage = () => {
 .turntable-container {
     color: var(--text-color);
     height: 100vh;
-    background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
+    // background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
 
     .inner {
         max-width: 1000px;
@@ -198,7 +261,7 @@ const handleSendMessage = () => {
         margin: 0 auto;
 
         .chat-title {
-            border-bottom: 1px solid #333636;
+            border-bottom: 1px solid rgba(150,170,243,0.3);
             .title-box {
                 font-size: 22px;
                 padding: 0;
@@ -228,7 +291,7 @@ const handleSendMessage = () => {
         }
 
         .input-main {
-            border: 1px solid rgba(255,255,255, 0.3);
+            border: 1px solid rgba(150,170,243,0.3);
             border-radius: 99px;
             &.error {
                 border-color: #C14E56;

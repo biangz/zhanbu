@@ -4,7 +4,7 @@
             <div class="text-center"><Loading /></div>
         </template>
         <template v-else>
-            <!-- <h5>列举四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5> -->
+            <h5>四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5>
             <h5 class="flex items-center text-right">
                 <span>人元：</span>
                 <div class="w-6">{{ renyuanResult.name }}</div>
@@ -84,6 +84,10 @@ const props = defineProps({
     }
 })
 const emit = defineEmits(['finish'])
+
+let requestParamsKW = []
+let requestParamsRumu = []
+
 // 拿到地分后，需要计算
 watch(
     () => props.difen,
@@ -619,12 +623,16 @@ const getXunshou = () => {
     xunshou.kongwang.forEach(v => {
         if (v === difenResult.name) {
             difenResult.kong = true
+            requestParamsKW.push(`地分`)
         } else if (v == renyuanResult.name) {
             renyuanResult.kong = true
+            requestParamsKW.push(`人元`)
         } else if (v == shenjiangResult.name) {
             shenjiangResult.kong = true
+            requestParamsKW.push(`神将`)
         } else if (v == guijiangResult.name) {
             guijiangResult.kong = true
+            requestParamsKW.push(`贵神`)
         }
     })
 
@@ -685,15 +693,19 @@ const handleCalculateRumu = () => {
             if (renyuanResult.wuxing === item) {
                 console.log('人元:', renyuanResult.wuxing, item)
                 renyuanResult.rumu.push(v)
+                requestParamsRumu.push(`人元入${v.name}墓`)
             } else if (guijiangResult.wuxing === item) {
                 console.log('贵将:', renyuanResult.wuxing, item)
                 guijiangResult.rumu.push(v)
+                requestParamsRumu.push(`贵将入${v.name}墓`)
             } else if (shenjiangResult.wuxing === item) {
                 console.log('神将:', renyuanResult.wuxing, item)
                 shenjiangResult.rumu.push(v)
+                requestParamsRumu.push(`神将入${v.name}墓`)
             }  else if (difenResult.wuxing === item) {
                 console.log('地分:', renyuanResult.wuxing, item)
                 difenResult.rumu.push(v)
+                requestParamsRumu.push(`地分入${v.name}墓`)
             } 
         })
     })
@@ -703,7 +715,9 @@ const handleCalculateRumu = () => {
         difen: difenResult.name,
         renyuan: renyuanResult.name,
         shenjiang: shenjiangResult.name,
-        guijiang: guijiangResult.name
+        guijiang: guijiangResult.name,
+        requestParamsRumu: requestParamsRumu,
+        requestParamsKW: requestParamsKW,
     })
 }
 

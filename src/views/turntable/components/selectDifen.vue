@@ -2,7 +2,7 @@
     <div class="difen-main">
         <dl>
             <dt class="title">
-                <MyTypeIt :class-name="'select-number-title'" :values="['先让我们来选一个你喜欢的数字开始吧：']" /></dt>
+                <MyTypeIt :class-name="'select-number-title'" :values="['命运指尖，占卜乐趣，先让我们来选一个你喜欢的数字开始吧：']" /></dt>
             <dd class="content flex items-center gap-1 flex-wrap" data-aos-delay="500" data-aos="fade-up">
                 <a-button 
                     v-for="item,index in numberList" 
@@ -42,13 +42,15 @@ onMounted(() => {
 <style scoped lang="less">
 .difen-main {
     .number-button {
-        // background: black;
+        color: black;
         // color: var(--text-color);
 
     }
     .title {
-        background: black;
+        // background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+        background: #66F132;
         padding: 18px 18px;
+        color: black;
     }
     .content {
         padding: 18px;

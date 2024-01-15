@@ -49,15 +49,21 @@ const handleFinish = (e) => {
     box-shadow: 0 8px 10px rgba(0,0,0,0.2);
     --radius: 22px;
     overflow: hidden;
+    white-space: pre-line;
 
     &.mine {
-        background-color: white;
+        // background-color: #96AAF3;
+        background-color: #66F132;
         align-self: flex-end;
-        color: #333636;
+        color: black;
         border-radius: var(--radius) 0 var(--radius) var(--radius);
     }
     &.ai {
-        background-color: #C5A75A;
+        background: linear-gradient(to left, rgba(200, 255, 255, 0.20), rgba(200, 255, 255, 0.20));
+        position: relative;
+        backdrop-filter: blur(14px);
+        object-fit: cover;
+        // background-color: #C5A75A;
         color: white;
         align-self: flex-start;
         border-radius: 0 var(--radius) var(--radius) var(--radius);
