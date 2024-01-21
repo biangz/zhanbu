@@ -1,55 +1,78 @@
 <template>
     <div class="qike-main text-left">
-        <template v-if="loading">
-            <div class="text-center"><Loading /></div>
-        </template>
-        <template v-else>
-            <h5>四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5>
+        <div class="flex items-center pb-4">
+            <span>股票开盘价：</span>
+            <input type="text" v-model="userInput" placeholder="股票开盘价">
+            <button @click="getSizhu">计算</button>
+        </div>
+        <h5>四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5>
+        <h5 class="flex items-center text-right">
+            <span>人元：</span>
+            <div class="w-12"></div>
+            <div class="w-6">阴阳</div>
+            <div class="w-6">五行</div>
+            <div class="w-6">旺衰</div>
+            <div class="w-6">空亡</div>
+            <div class="w-6"></div>
+            <!-- <div class="w-6">纳音</div> -->
+        </h5>
+        <h5 class="flex items-center text-right">
+            <span>人元：</span>
+            <div class="w-12">{{ renyuanResult.name }}</div>
+            <div class="w-6">{{ renyuanResult.yinyang }}</div>
+            <div class="w-6">{{ renyuanResult.wuxing }}</div>
+            <div class="w-6">{{ renyuanResult.wangshuai }}</div>
+            <div class="w-6">{{ renyuanResult.kong ? '(空)' : '' }}</div>
+            <div class="w-6">{{ renyuanResult.sidaKong ? '(四空)' : '' }}</div>
+        </h5>
+        <h5 class="flex items-center text-right">
+            <span>贵神：</span>
+            <div class="w-12">{{guishenGanResult.name}} | {{ guishenResult.name }}</div>
+            <div class="w-6">{{ guishenResult.yinyang }}</div>
+            <div class="w-6">{{ guishenResult.wuxing }}</div>
+            <div class="w-6">{{ guishenResult.wangshuai }}</div>
+            <div class="w-6">{{ guishenResult.kong ? '(空)' : '' }}</div>
+            <div class="w-6">{{ guishenResult.sidaKong ? '(四空)' : '' }}</div>
+            <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in guishenResult.rumu">入{{ item.name }}墓</span> </div>
+        </h5>
+        <h5 class="flex items-center text-right">
+            <span>神将：</span>
+            <div class="w-12">{{ shenjiangGanResult.name}} | {{ shenjiangResult.name }}</div>
+            <div class="w-6">{{ shenjiangResult.yinyang }}</div>
+            <div class="w-6">{{ shenjiangResult.wuxing }}</div>
+            <div class="w-6">{{ shenjiangResult.wangshuai }}</div>
+            <div class="w-6">{{ shenjiangResult.kong ? '(空)' : '' }}</div>
+            <div class="w-6">{{ shenjiangResult.sidaKong ? '(四空)' : '' }}</div>
+            <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in shenjiangResult.rumu">入{{ item.name }}墓</span> </div>
+        </h5>
+        <h5 class="flex items-center text-right">
+            <span>地分：</span>
+            <div class="w-12">{{ difenResult.name }}</div>
+            <div class="w-6">{{ difenResult.yinyang }}</div>
+            <div class="w-6">{{ difenResult.wuxing }}</div>
+            <div class="w-6">{{ difenResult.wangshuai }}</div>
+            <div class="w-6">{{ difenResult.kong ? '(空)' : '' }}</div>
+            <div class="w-6">{{ difenResult.sidaKong ? '(四空)' : '' }}</div>
+            <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in difenResult.rumu">入{{ item.name }}墓</span> </div>
+        </h5>
+        <!-- <h5>遁数：{{ dunshuResult.number }} - {{ dunshuResult.name }}</h5>
+        <hr>
+        <h5>阴阳计数：阴:{{ yinNumber.number }} 阳:{{ yangNumber.number }}</h5>
+        <h5>用爻:{{ yongyao }}</h5>
+        <h5>旬首:{{ xunshou.name }} {{ xunshou.kongwang }}</h5> -->
+        <fieldset>
+            <legend>纳音</legend>
             <h5 class="flex items-center text-right">
-                <span>人元：</span>
-                <div class="w-6">{{ renyuanResult.name }}</div>
-                <div class="w-6">{{ renyuanResult.yinyang }}</div>
-                <div class="w-6">{{ renyuanResult.wuxing }}</div>
-                <div class="w-6">{{ renyuanResult.wangshuai }}</div>
-                <div class="w-6">{{ renyuanResult.kong ? '(空)' : '' }}</div>
-                <div class="w-6">{{ renyuanResult.sidaKong ? '(四空)' : '' }}</div>
+                <div class="w-12">{{ guishenGanResult.nayin }}</div>
+                <div class="w-12">{{ guishenGanResult.nayinResult }}</div>
+                <div class="w-12">{{ guishenGanResult.shengke }}</div>
             </h5>
             <h5 class="flex items-center text-right">
-                <span>贵神：</span>
-                <div class="w-6">{{guijiangGanResult.name}} | {{ guijiangResult.name }}</div>
-                <div class="w-6">{{ guijiangResult.yinyang }}</div>
-                <div class="w-6">{{ guijiangResult.wuxing }}</div>
-                <div class="w-6">{{ guijiangResult.wangshuai }}</div>
-                <div class="w-6">{{ guijiangResult.kong ? '(空)' : '' }}</div>
-                <div class="w-6">{{ guijiangResult.sidaKong ? '(四空)' : '' }}</div>
-                <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in guijiangResult.rumu">入{{ item.name }}墓</span> </div>
+                <div class="w-12">{{ shenjiangGanResult.nayin }}</div>
+                <div class="w-12">{{ shenjiangGanResult.nayinResult }}</div>
+                <div class="w-12">{{ shenjiangGanResult.shengke }}</div>
             </h5>
-            <h5 class="flex items-center text-right">
-                <span>神将：</span>
-                <div class="w-6">{{ shenjiangGanResult.name}} | {{ shenjiangResult.name }}</div>
-                <div class="w-6">{{ shenjiangResult.yinyang }}</div>
-                <div class="w-6">{{ shenjiangResult.wuxing }}</div>
-                <div class="w-6">{{ shenjiangResult.wangshuai }}</div>
-                <div class="w-6">{{ shenjiangResult.kong ? '(空)' : '' }}</div>
-                <div class="w-6">{{ shenjiangResult.sidaKong ? '(四空)' : '' }}</div>
-                <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in shenjiangResult.rumu">入{{ item.name }}墓</span> </div>
-            </h5>
-            <h5 class="flex items-center text-right">
-                <span>地分：</span>
-                <div class="w-6">{{ difenResult.name }}</div>
-                <div class="w-6">{{ difenResult.yinyang }}</div>
-                <div class="w-6">{{ difenResult.wuxing }}</div>
-                <div class="w-6">{{ difenResult.wangshuai }}</div>
-                <div class="w-6">{{ difenResult.kong ? '(空)' : '' }}</div>
-                <div class="w-6">{{ difenResult.sidaKong ? '(四空)' : '' }}</div>
-                <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in difenResult.rumu">入{{ item.name }}墓</span> </div>
-            </h5>
-            <!-- <h5>遁数：{{ dunshuResult.number }} - {{ dunshuResult.name }}</h5>
-            <hr>
-            <h5>阴阳计数：阴:{{ yinNumber.number }} 阳:{{ yangNumber.number }}</h5>
-            <h5>用爻:{{ yongyao }}</h5>
-            <h5>旬首:{{ xunshou.name }} {{ xunshou.kongwang }}</h5> -->
-        </template>
+        </fieldset>
     </div>
 </template>
 
@@ -72,35 +95,18 @@ import {
     tianganNumber, 
     kongwang, 
     sidaKongwang, 
-    rumu 
+    rumu,
+    nayin
 } from '@/utils';
 import Loading from '@/components/Loading.vue'
 const sizhu = reactive({ year: '', month: '', day: '', time: '' })
 const loading = ref(true)
-const props = defineProps({
-    difen: {
-        require: true,
-        type: Number
-    }
-})
-const emit = defineEmits(['finish'])
 
 let requestParamsKW = []
 let requestParamsRumu = []
 
-// 拿到地分后，需要计算
-watch(
-    () => props.difen,
-    (val, old) => {
-        console.log('qike:: start::', val)
-        // handleCalculateDifen(val)
-        
-    }
-)
-
 onMounted(() => {
-    console.log('onMounted qike:', props.difen)
-    getSizhu()
+    
 })
 
 const getSizhu = () => {
@@ -110,10 +116,11 @@ const getSizhu = () => {
             sizhu.year = res.data.year_pillar
             sizhu.month = res.data.month_pillar
             sizhu.day = res.data.day_pillar
+            // sizhu.day = '辛巳'
             sizhu.time = res.data.hour_pillar
         }
         loading.value = false
-        handleCalculateDifen(props.difen)
+        handleCalculateDifen(userInput.value)
     })
 }
 
@@ -146,6 +153,25 @@ const dunshuResult = reactive({
     number: 0,
     name: '',
 })
+// 贵神
+const guishenResult = reactive({
+    number: 0,
+    name: '',
+    yinyang: '',
+    wuxing: '',
+    wangshuai: '',
+    kong: false,
+    sidaKong: false,
+    rumu: [],
+})
+// 贵神干
+const guishenGanResult = reactive({
+    number: 0,
+    name: '',
+    nayin: '',
+    nayinResult: '',
+    nayinWuxing: '',
+})
 // 神将
 const shenjiangResult = reactive({
     number: 0,
@@ -161,22 +187,9 @@ const shenjiangResult = reactive({
 const shenjiangGanResult = reactive({
     number: 0,
     name: '',
-})
-// 贵将
-const guijiangResult = reactive({
-    number: 0,
-    name: '',
-    yinyang: '',
-    wuxing: '',
-    wangshuai: '',
-    kong: false,
-    sidaKong: false,
-    rumu: [],
-})
-// 贵将干
-const guijiangGanResult = reactive({
-    number: 0,
-    name: '',
+    nayin: '',
+    nayinResult: '',
+    nayinWuxing: '',
 })
 
 const yinNumber = reactive({
@@ -198,18 +211,22 @@ const xunshou = reactive({
 const rumuSizhu = reactive({list: []})
 
 
-// 地分计算
+// 地分计算，通过股票开盘价计算，例如 13.3  1+3+3 % 12
 const handleCalculateDifen = (val) => {
-    difenResult.number = Number(val % 12)
+    let numberArr = val.replace('.', '').split('')
+    let number = numberArr.reduce((pre, cur, index) => {
+        return pre += Number(cur)
+    }, 0)
+    difenResult.number = Number(number % 12)
     difenResult.name = dizhi(`${difenResult.number}`)
     difenResult.yinyang = handleCalculateYinyang(difenResult.number)
     difenResult.wuxing = wuxing(difenResult.name)
     handleCalculateRenyuan() // 地分
     handleCalculateShenjiang() // 神将
-    handleCalculateGuijiang()
+    handleCalculateGuishen()
     handleCalculateShenjiangGan()
-    handleCalculateGuijiangGan()
-
+    handleCalculateGuishenGan()
+    handleNayin() // 纳音
     handleCalculateYongyao() // 用爻
 
     getXunshou() // 旬首
@@ -219,7 +236,7 @@ const handleCalculateDifen = (val) => {
     // 组装找旺的入参
     let element = [
         { name: renyuanResult.wuxing, index: 0 },
-        { name: guijiangResult.wuxing, index: 1 },
+        { name: guishenResult.wuxing, index: 1 },
         { name: shenjiangResult.wuxing, index: 2 },
         { name: difenResult.wuxing, index: 3 },
     ]
@@ -247,8 +264,8 @@ const handleCalculateShenjiang = () => {
     let monthD = sizhu.month[1]
     // 2. 月将
     let yj = dizhiNumber(yuejiang(monthD))
-    // 3. 时柱地支
-    let t = dizhiNumber(sizhu.time[1])
+    // 3.  改为：日柱地支
+    let t = dizhiNumber(sizhu.day[1])
     // 顺排转盘到地分位置  (地分 - 时柱 + 月将 + 12) % 12,  加的 12 时防止为负数，跟 % 12 正好抵消
     let r = (difenResult.number - t + yj + 12) % 12
     r = r == 0 ? 12 : r
@@ -272,8 +289,8 @@ const handleCalculateShenjiangGan = () => {
 
 let a = [['卯', '辰', '巳', '午', '未', '申'], ['酉', '戌', '亥', '子', '丑', '寅']]
 
-// 贵将计算
-const handleCalculateGuijiang = () => {
+// 贵神计算
+const handleCalculateGuishen = () => {
     // 1. 日柱天干
     let r = sizhu.day[0]
     let t = sizhu.time[1]
@@ -314,25 +331,25 @@ const handleCalculateGuijiang = () => {
         }
     }
     x = x == 0 ? 12 : x
-    guijiangResult.name = guishenPaixuName(x)
-    guijiangResult.number = dizhiNumber(guishenPaixuName(x))
+    guishenResult.name = guishenPaixuName(x)
+    guishenResult.number = dizhiNumber(guishenPaixuName(x))
     console.log('>>贵神起始位置:', gui, 'guiNumber:', guiNumber, ' 地分：', difenResult.number)
 
-    guijiangResult.yinyang = handleCalculateYinyang(guijiangResult.number)
-    guijiangResult.wuxing = wuxing(guijiangResult.name)
+    guishenResult.yinyang = handleCalculateYinyang(guishenResult.number)
+    guishenResult.wuxing = wuxing(guishenResult.name)
 
     // 3. 贵神排序，将丑从起贵结果开始顺序排序（白天顺时，晚上逆时，排到地分
 }
 
 // 贵将干计算
-const handleCalculateGuijiangGan = () => {
+const handleCalculateGuishenGan = () => {
     // 1. 遁数
     // 2. 以贵将值为截止参照排序
-    let mod = (guijiangResult.number - 1 + dunshuResult.number) % 10
+    let mod = (guishenResult.number - 1 + dunshuResult.number) % 10
     mod = mod == 0 ? 10 : mod
-    guijiangGanResult.number = mod
-    guijiangGanResult.name = tiangan(mod)
-    console.log('>>贵将干计算: ', mod, '遁数：', dunshuResult.number, '贵将：', guijiangResult.number)
+    guishenGanResult.number = mod
+    guishenGanResult.name = tiangan(mod)
+    console.log('>>贵将干计算: ', mod, '遁数：', dunshuResult.number, '贵将：', guishenResult.number)
 }
 
 // 阴阳计算
@@ -362,7 +379,7 @@ const handleCalculateYongyao = () => {
         // 神将
         yongyao.value = shenjiangResult.name
     } else if (yangNumber.number == 4) {
-        yongyao.value = guijiangResult.name
+        yongyao.value = guishenResult.name
         // 贵神
     }
 }
@@ -441,7 +458,7 @@ const findDominantElement = (elements) => {
             if (v.index == 0 ) { // 人元
                 renyuanResult.wangshuai = '旺'
             } else if (v.index == 1) { // 贵将
-                guijiangResult.wangshuai = '旺'
+                guishenResult.wangshuai = '旺'
             } else if (v.index == 2) { // 神将
                 shenjiangResult.wangshuai = '旺'
             } else if (v.index == 3) { // 地分
@@ -481,7 +498,7 @@ const findDominantElement = (elements) => {
             if (item.index == 0) {
                 renyuanResult.wangshuai = r
             } else if (item.index == 1) {
-                guijiangResult.wangshuai = r
+                guishenResult.wangshuai = r
             } else if (item.index == 2) {
                 shenjiangResult.wangshuai = r
             } else if (item.index == 3) {
@@ -492,8 +509,8 @@ const findDominantElement = (elements) => {
         if (renyuanResult.wuxing == dominantElement) {
             renyuanResult.wangshuai = '旺'
         }
-        if (guijiangResult.wuxing == dominantElement) {
-            guijiangResult.wangshuai = '旺'
+        if (guishenResult.wuxing == dominantElement) {
+            guishenResult.wangshuai = '旺'
         }
         if (shenjiangResult.wuxing == dominantElement) {
             shenjiangResult.wangshuai = '旺'
@@ -505,8 +522,8 @@ const findDominantElement = (elements) => {
         if (!renyuanResult.wangshuai) {
             renyuanResult.wangshuai = compareTwoElement(dominantElement, renyuanResult.wuxing)
         }
-        if (!guijiangResult.wangshuai) {
-            guijiangResult.wangshuai = compareTwoElement(dominantElement, guijiangResult.wuxing)
+        if (!guishenResult.wangshuai) {
+            guishenResult.wangshuai = compareTwoElement(dominantElement, guishenResult.wuxing)
         }
         if (!shenjiangResult.wangshuai) {
             shenjiangResult.wangshuai = compareTwoElement(dominantElement, shenjiangResult.wuxing)
@@ -630,8 +647,8 @@ const getXunshou = () => {
         } else if (v == shenjiangResult.name) {
             shenjiangResult.kong = true
             requestParamsKW.push(`神将`)
-        } else if (v == guijiangResult.name) {
-            guijiangResult.kong = true
+        } else if (v == guishenResult.name) {
+            guishenResult.kong = true
             requestParamsKW.push(`贵神`)
         }
     })
@@ -644,8 +661,8 @@ const getXunshou = () => {
             renyuanResult.sidaKong = true
         } else if (xunshou.sidaKongwang == shenjiangResult.wuxing) {
             shenjiangResult.sidaKong = true
-        } else if (xunshou.sidaKongwang == guijiangResult.wuxing) {
-            guijiangResult.sidaKong = true
+        } else if (xunshou.sidaKongwang == guishenResult.wuxing) {
+            guishenResult.sidaKong = true
         }
     }
 }
@@ -677,7 +694,7 @@ const handleCalculateRumu = () => {
     // 2. 再拿到 4 亥的对应值
     let siHai = [
         { name: '人元', value: renyuanResult.name, rumuWuxing: rumu(renyuanResult.name) },
-        { name: '贵神', value: guijiangResult.name, rumuWuxing: rumu(guijiangResult.name) },
+        { name: '贵神', value: guishenResult.name, rumuWuxing: rumu(guishenResult.name) },
         { name: '神将', value: shenjiangResult.name, rumuWuxing: rumu(shenjiangResult.name) },
         { name: '地分', value: difenResult.name, rumuWuxing: rumu(difenResult.name) },
     ]
@@ -686,7 +703,6 @@ const handleCalculateRumu = () => {
     })
     rumuSizhu.list = rumuSizhu.list.concat(siHaiFilter) // 拿到的 rumusizhu ，所有的入墓数据
     
-    console.log('>>>>>>>>>>>>>>>rumuSizhu::', rumuSizhu.list)
     rumuSizhu.list.forEach((v,i) => {
         console.log(v.name, '==>的入墓')
         v.rumuWuxing.forEach((item, j) => {
@@ -695,16 +711,16 @@ const handleCalculateRumu = () => {
                 console.log('人元:', renyuanResult.wuxing, item)
                 renyuanResult.rumu.push(v)
                 requestParamsRumu.push(`人元入${v.name}墓`)
-            } else if (guijiangResult.wuxing === item) {
-                console.log('贵将:', guijiangResult.wuxing, item)
-                guijiangResult.rumu.push(v)
+            } else if (guishenResult.wuxing === item) {
+                console.log('贵将:', renyuanResult.wuxing, item)
+                guishenResult.rumu.push(v)
                 requestParamsRumu.push(`贵将入${v.name}墓`)
             } else if (shenjiangResult.wuxing === item) {
-                console.log('神将:', shenjiangResult.wuxing, item)
+                console.log('神将:', renyuanResult.wuxing, item)
                 shenjiangResult.rumu.push(v)
                 requestParamsRumu.push(`神将入${v.name}墓`)
             }  else if (difenResult.wuxing === item) {
-                console.log('地分:', difenResult.wuxing, item)
+                console.log('地分:', renyuanResult.wuxing, item)
                 difenResult.rumu.push(v)
                 requestParamsRumu.push(`地分入${v.name}墓`)
             } 
@@ -712,20 +728,32 @@ const handleCalculateRumu = () => {
     })
 
     // 计算完成
-    emit('finish', {
-        difen: difenResult.name,
-        renyuan: renyuanResult.name,
-        shenjiang: shenjiangResult.name,
-        guijiang: guijiangResult.name,
-        requestParamsRumu: requestParamsRumu,
-        requestParamsKW: requestParamsKW,
-    })
+    // emit('finish', {
+    //     difen: difenResult.name,
+    //     renyuan: renyuanResult.name,
+    //     shenjiang: shenjiangResult.name,
+    //     guijiang: guishenResult.name,
+    //     requestParamsRumu: requestParamsRumu,
+    //     requestParamsKW: requestParamsKW,
+    // })
 }
 
-// 找地支关系
-const handleCalculateRelationship = () => {
-
+// 纳音 
+// 空亡 0.2 入墓 0.5
+const handleNayin = () => {
+    // 1. 贵神干
+    guishenGanResult.nayin = `${guishenGanResult.name}${guishenResult.name}`
+    guishenGanResult.nayinResult = nayin(guishenGanResult.nayin)
+    guishenGanResult.nayinWuxing = guishenGanResult.nayinResult.charAt(guishenGanResult.nayinResult.length - 1)
+    // 2. 神将干
+    shenjiangGanResult.nayin = `${shenjiangGanResult.name}${shenjiangResult.name}`
+    shenjiangGanResult.nayinResult = nayin(shenjiangGanResult.nayin)
+    shenjiangGanResult.nayinWuxing = shenjiangGanResult.nayinResult.charAt(shenjiangGanResult.nayinResult.length - 1)
+    
+    guishenGanResult.shengke = compareTwoElement(guishenGanResult.nayinWuxing, shenjiangGanResult.nayinWuxing)
+    shenjiangGanResult.shengke = compareTwoElement(shenjiangGanResult.nayinWuxing, guishenGanResult.nayinWuxing)
 }
+
 
 const countAndOutputNames = (data) => {
   const countMap = {};
@@ -786,6 +814,7 @@ let d = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '
 .qike-main {
     min-width: 10rem;
     padding: 18px;
+    font-size: 32px;
     h5 {
         margin: 6px 0;
         > span {
