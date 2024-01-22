@@ -45,7 +45,6 @@ const createChat = () => {
         if (message == 'pong') {
             return
         }
-
         let ret = JSON.parse(message)
         if(ret.code == 0) {
             // 找到最后一个 loading 元素 || 未完成回答的元素
@@ -62,7 +61,7 @@ const createChat = () => {
                     content: msg,
                 })
             }
-        } else if (ret.code == 201 || ret.code == 202 || ret.code ==203) { // code 2001 2002 2003
+        } else if (ret.code == 201 || ret.code == 202 || ret.code == 203) { // code 2001 2002 2003
             isSend.value = false
         } else {
             console.log('error')
