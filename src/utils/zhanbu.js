@@ -210,7 +210,6 @@ export function wuxing(name) {
 }
 
 export function yinhang(number) {
-    if (!number) return;
     if (number % 2 === 1) {
         return '+'
     } else if (number % 2 === 0) {
