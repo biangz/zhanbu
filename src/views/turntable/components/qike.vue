@@ -5,7 +5,7 @@
         </template>
         <template v-else>
             <h5>四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5>
-            <h5 class="flex items-center text-right">
+            <h5 class="flex items-center text-right pt-2">
                 <span>人元：</span>
                 <div class="w-6">{{ renyuanResult.name }}</div>
                 <div class="w-6">{{ renyuanResult.yinyang }}</div>
@@ -13,6 +13,7 @@
                 <div class="w-6">{{ renyuanResult.wangshuai }}</div>
                 <div class="w-6">{{ renyuanResult.kong ? '(空)' : '' }}</div>
                 <div class="w-6">{{ renyuanResult.sidaKong ? '(四空)' : '' }}</div>
+                <div class="flex-1 text-left"><span class="ml-2" v-for="item,index in renyuanResult.rumu">入{{ item.name }}墓</span> </div>
             </h5>
             <h5 class="flex items-center text-right">
                 <span>贵神：</span>
@@ -46,9 +47,12 @@
             </h5>
             <!-- <h5>遁数：{{ dunshuResult.number }} - {{ dunshuResult.name }}</h5>
             <hr>
-            <h5>阴阳计数：阴:{{ yinNumber.number }} 阳:{{ yangNumber.number }}</h5>
-            <h5>用爻:{{ yongyao }}</h5>
-            <h5>旬首:{{ xunshou.name }} {{ xunshou.kongwang }}</h5> -->
+            <h5>阴阳计数：阴:{{ yinNumber.number }} 阳:{{ yangNumber.number }}</h5> -->
+            <h5 class="flex items-center text-right pt-2">
+                <span>用爻：</span>
+                <div class="w-6">{{ yongyao }}</div>
+            </h5>
+            <!-- <h5>旬首:{{ xunshou.name }} {{ xunshou.kongwang }}</h5> -->
         </template>
     </div>
 </template>
@@ -121,6 +125,7 @@ const getSizhu = () => {
 // 地分
 const userInput = ref('')
 const difenResult = reactive({
+    sign: '地分',
     number: 0,
     name: '',
     yinyang: '',
@@ -132,6 +137,7 @@ const difenResult = reactive({
 })
 // 人元
 const renyuanResult = reactive({
+    sign: '人元',
     number: 0,
     name: '',
     yinyang: '',
@@ -148,6 +154,7 @@ const dunshuResult = reactive({
 })
 // 神将
 const shenjiangResult = reactive({
+    sign: '神将',
     number: 0,
     name: '',
     yinyang: '',
@@ -162,8 +169,9 @@ const shenjiangGanResult = reactive({
     number: 0,
     name: '',
 })
-// 贵将
+// 贵神
 const guijiangResult = reactive({
+    sign: '贵神',
     number: 0,
     name: '',
     yinyang: '',
@@ -686,24 +694,26 @@ const handleCalculateRumu = () => {
     })
     rumuSizhu.list = rumuSizhu.list.concat(siHaiFilter) // 拿到的 rumusizhu ，所有的入墓数据
     
-    console.log('>>>>>>>>>>>>>>>rumuSizhu::', rumuSizhu.list)
     rumuSizhu.list.forEach((v,i) => {
-        console.log(v.name, '==>的入墓')
         v.rumuWuxing.forEach((item, j) => {
+            console.log('>>rumuSizhu>>>>>>', item)
             // 跟每个 4 亥五行对比
-            if (renyuanResult.wuxing === item) {
+            if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
                 console.log('人元:', renyuanResult.wuxing, item)
                 renyuanResult.rumu.push(v)
                 requestParamsRumu.push(`人元入${v.name}墓`)
-            } else if (guijiangResult.wuxing === item) {
+            }
+            if (guijiangResult.wuxing === item && v.name != guijiangResult.sign) {
                 console.log('贵将:', guijiangResult.wuxing, item)
                 guijiangResult.rumu.push(v)
                 requestParamsRumu.push(`贵将入${v.name}墓`)
-            } else if (shenjiangResult.wuxing === item) {
+            }
+            if (shenjiangResult.wuxing === item && v.name != shenjiangResult.sign) {
                 console.log('神将:', shenjiangResult.wuxing, item)
                 shenjiangResult.rumu.push(v)
                 requestParamsRumu.push(`神将入${v.name}墓`)
-            }  else if (difenResult.wuxing === item) {
+            }
+            if (difenResult.wuxing === item && v.name != difenResult.sign) {
                 console.log('地分:', difenResult.wuxing, item)
                 difenResult.rumu.push(v)
                 requestParamsRumu.push(`地分入${v.name}墓`)
