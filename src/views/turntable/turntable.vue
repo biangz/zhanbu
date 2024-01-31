@@ -6,6 +6,10 @@ import { SpwsClient, calculateShenKe } from '@/api';
 import { loadGapiInsideDOM, loadAuth2 } from 'gapi-script';
 import Decimal from 'decimal.js';
 import ChatItem from './components/chatItem.vue';
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+const $toast = useToast();
 const userStore = useAuthStore()
 const chatroomContent = ref(null)
 let ws = null;
@@ -17,6 +21,19 @@ const showError = ref(false)
 const isSend = ref(false)
 const calId = ref(0)
 
+// 常用问题
+const questionList = reactive({
+    list: [
+        '我未来的爱情会如何发展？',
+        '我的事业生涯将有什么变化？',
+        '我今后的财务状况如何？',
+        '是否有任何未来的健康隐患？',
+        '我和某人的关系会如何发展？',
+        '我未来会有哪些重要的决定需要做？',
+        '我应该追求什么样的生活目标？',
+        '我未来的旅行会有什么特别之处？',
+    ]
+})
 
 // 聊天列表
 const chatList = reactive({
@@ -128,6 +145,21 @@ const qikeFinish = (e) => {
     })
 }
 
+// 选择预设问题
+const handlePreviewQuestion = (question) => {
+    if (!userSelectNumber.value) {
+        return $toast.open({
+            message: '在挑选问题之前，请先点击按钮开始您的数字起课之旅！',
+            duration: 3000,
+            type: 'info',
+            position: 'top-right'
+        });
+    }
+    sendMessage.value = question
+    handleSendMessage()
+}
+
+
 // 发送用户输入的内容
 const handleSendMessage = () => {
     if (!sendMessage.value) {
@@ -219,28 +251,43 @@ const signOut = () => {
 <template>
     <div class="turntable-container">
 
-        <div class="inner gap-y-2">
-
-            <div class="chat-title flex items-center w-full py-2">
-                <!-- <i @click="$router.go(-1)" class="icon i-solar-map-arrow-left-bold mr-2"></i> -->
-                <div class="title-box flex-1">
-                    <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
-                    <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
-                    <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
+        <div class="inner">
+            <div class="question-list">
+                <p class="title">不确定要问什么？试试点击这里⬇</p>
+                <div class="question">
+                    <p 
+                        class="question-item" 
+                        :data-aos-delay="500 * i" 
+                        data-aos="fade-up" 
+                        v-for="(item, index) in questionList.list" 
+                        :key="index"
+                        @click="handlePreviewQuestion(item)"
+                    >{{ item }}</p>
                 </div>
-                <i class="icon i-solar-share-bold"></i>
             </div>
-
-            <!-- 聊天对话 -->
-            <div class="chat-main w-full" ref="chatroomContent">
-                <chat-item class="flex-shrink-0" v-for="item, index in chatList.list" :item="item" :key="index" @select="handleSelectDifen" @finish="qikeFinish" />
+            <div class="inner-chat gap-y-2">
+    
+                <div class="chat-title flex items-center w-full py-2">
+                    <!-- <i @click="$router.go(-1)" class="icon i-solar-map-arrow-left-bold mr-2"></i> -->
+                    <div class="title-box flex-1">
+                        <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
+                        <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
+                        <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
+                    </div>
+                    <i class="icon i-solar-share-bold"></i>
+                </div>
+    
+                <!-- 聊天对话 -->
+                <div class="chat-main w-full" ref="chatroomContent">
+                    <chat-item class="flex-shrink-0" v-for="item, index in chatList.list" :item="item" :key="index" @select="handleSelectDifen" @finish="qikeFinish" />
+                </div>
+    
+                <div v-if="userSelectNumber" class="input-main flex items-center gap-x-4 w-full my-2 px-4 py-1" :class="[showError?'error':'']">
+                    <input v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" placeholder="Type a message" :class="[showError?'error':'']">
+                    <a-button :loading="isSend" type="text" @click="handleSendMessage" class="send-button"><i class="i-solar-archive-up-minimlistic-bold-duotone"></i></a-button>
+                </div>
+                
             </div>
-
-            <div v-if="userSelectNumber" class="input-main flex items-center gap-x-4 w-full my-2 px-4 py-1" :class="[showError?'error':'']">
-                <input v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" placeholder="Type a message" :class="[showError?'error':'']">
-                <a-button :loading="isSend" type="text" @click="handleSendMessage" class="send-button"><i class="i-solar-archive-up-minimlistic-bold-duotone"></i></a-button>
-            </div>
-            
         </div>
     </div>
 </template>
@@ -252,66 +299,101 @@ const signOut = () => {
     // background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
 
     .inner {
-        max-width: 1000px;
-        height: 100vh;
+        max-width: 1400px;
+        gap: 40px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         margin: 0 auto;
-
-        .chat-title {
-            border-bottom: 1px solid rgba(150,170,243,0.3);
-            .title-box {
-                font-size: 22px;
-                padding: 0;
-                line-height: 1;
-            }
-            i {
-                font-size: 24px;
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.8;
-                }
-            }
-        }
-
-        .chat-main {
-            height: calc(100vh - 55px - 80px);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow-x: hidden;
-            overflow-y: auto;
-            ::-webkit-scrollbar {
-                display: none; /* Chrome Safari */
-            }
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE 10+ */
-        }
-
-        .input-main {
-            border: 1px solid rgba(150,170,243,0.3);
-            border-radius: 99px;
-            &.error {
-                border-color: #C14E56;
+        .question-list {
+            width: 320px;
+            // background: rgba(200, 255, 255, 0.2);
+            // border-radius: 8px;
+            // margin-top: 12px;
+            // padding: 0 12px;
+            .title {
+                font-size: 20px;
+                padding: 40px 0;
             }
 
-            > input {
-                background: transparent;
-                font-size: 24px;
-                border: none;
-                outline: none;
-                color: var(--text-color);
-                flex: 1;
-                &.error {
-                    &::placeholder {
-                        color: #C14E56;
+            .question {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                .question-item {
+                    background-color: #66F132;
+                    font-size: 18px;
+                    color: black;
+                    margin: 10px 0;
+                    padding: 12px;
+                    border-radius: 99px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
                     }
                 }
             }
-            .send-button {
-                color: var(--text-color);
-                // font-size: 40px;
+        }
+        .inner-chat {
+            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
+            .chat-title {
+                border-bottom: 1px solid rgba(150,170,243,0.3);
+                .title-box {
+                    font-size: 22px;
+                    padding: 0;
+                    line-height: 1;
+                }
+                i {
+                    font-size: 24px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+    
+            .chat-main {
+                height: calc(100vh - 55px - 80px);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                overflow-x: hidden;
+                overflow-y: auto;
+                ::-webkit-scrollbar {
+                    display: none; /* Chrome Safari */
+                }
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE 10+ */
+            }
+    
+            .input-main {
+                border: 1px solid rgba(150,170,243,0.3);
+                border-radius: 99px;
+                &.error {
+                    border-color: #C14E56;
+                }
+    
+                > input {
+                    background: transparent;
+                    font-size: 24px;
+                    border: none;
+                    outline: none;
+                    color: var(--text-color);
+                    flex: 1;
+                    &.error {
+                        &::placeholder {
+                            color: #C14E56;
+                        }
+                    }
+                }
+                .send-button {
+                    color: var(--text-color);
+                    // font-size: 40px;
+                }
             }
         }
     }

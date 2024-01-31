@@ -59,8 +59,8 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/localapi': {
-        target: "http://localhost:8088",
-        // target: "https://eli-api.fenus.xyz",
+        // target: "http://localhost:8088",
+        target: "https://eli-api.fenus.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },
