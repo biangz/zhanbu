@@ -22,3 +22,14 @@ export function loginUserInfo(params = {}) {
         params,
     });
 }
+
+export function coinList(data = {}) {
+    return service({
+        url: `/api/v1/eli/web3/coinList`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+        data: qs.stringify(data),
+    });
+}

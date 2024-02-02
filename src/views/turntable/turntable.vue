@@ -79,6 +79,8 @@ const createChat = () => {
 // 切换种类
 const handleChangeType = (type) => {
     currentType.value = type
+    userSelectNumber.value = ''
+    ws.close()
     getHistory()
 }
 
@@ -132,10 +134,12 @@ const handleSelectDifen = (e) => {
 
 // 起课完成
 const qikeFinish = (e) => {
-    pushChatList({
-        isAi: true,
-        content: '请说出你的问题',
-    })
+    if (e.type == 'primary') {
+        pushChatList({
+            isAi: true,
+            content: '请说出你的问题',
+        })
+    }
     // 0 人元 1 贵神 2 神将 3 地分
     calculateShenKe({
         dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
@@ -255,7 +259,7 @@ const signOut = () => {
     <div class="turntable-container">
 
         <div class="inner">
-            <Question type="primary" @change="handlePreviewQuestion" />
+            <Question :type="currentType" @change="handlePreviewQuestion" />
             <div class="inner-chat gap-y-2">
     
                 <div class="chat-title w-full">

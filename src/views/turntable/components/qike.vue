@@ -729,6 +729,7 @@ const handleCalculateRumu = () => {
         guijiang: guijiangResult.name,
         requestParamsRumu: requestParamsRumu,
         requestParamsKW: requestParamsKW,
+        type: 'primary',
     })
 }
 

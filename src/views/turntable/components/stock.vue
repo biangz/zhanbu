@@ -282,8 +282,8 @@ const handleCalculateShenjiang = () => {
     let monthD = sizhu.month[1]
     // 2. 月将
     let yj = dizhiNumber(yuejiang(monthD))
-    // 3. 时柱地支
-    let t = dizhiNumber(sizhu.time[1])
+    // 3. 改为：日柱地支
+    let t = dizhiNumber(sizhu.day[1])
     // 顺排转盘到地分位置  (地分 - 时柱 + 月将 + 12) % 12,  加的 12 时防止为负数，跟 % 12 正好抵消
     let r = (difenResult.number - t + yj + 12) % 12
     r = r == 0 ? 12 : r
@@ -756,6 +756,7 @@ const handleCalculateRumu = () => {
         guijiang: guishenResult.name,
         requestParamsRumu: requestParamsRumu,
         requestParamsKW: requestParamsKW,
+        type: 'stock',
     })
 }
 
