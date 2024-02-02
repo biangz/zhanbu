@@ -8,11 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('@arco-design/web-vue')['Button']
+    AInputSearch: typeof import('@arco-design/web-vue')['InputSearch']
     AppLoading: typeof import('./src/components/layout/appLoading.vue')['default']
     Footer: typeof import('./src/components/layout/Footer.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
     Loading: typeof import('./src/components/Loading.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
+    Question: typeof import('./src/components/Question.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TypeIt: typeof import('./src/components/TypeIt.vue')['default']

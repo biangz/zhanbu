@@ -6,6 +6,7 @@ import { SpwsClient, calculateShenKe } from '@/api';
 import { loadGapiInsideDOM, loadAuth2 } from 'gapi-script';
 import Decimal from 'decimal.js';
 import ChatItem from './components/chatItem.vue';
+import Question from '@/components/Question.vue'
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
@@ -20,25 +21,8 @@ const sendMessage = ref('')
 const showError = ref(false)
 const isSend = ref(false)
 const calId = ref(0)
+const currentType = ref('primary')
 
-// 常用问题
-const questionList = reactive({
-    list: [
-        '看看财运怎么样？',
-        '看看运势如何？',
-        '我的事业发展怎么样？',
-        '我和女朋友发展怎么样？',
-        '我和男朋友发展怎么样？',
-        '婚姻情感测试',
-        '我的工作有发展空间吗？',
-        '我想到外地发展怎么样？',
-        '我能赚到钱吗？',
-        '最近身体不舒服，有没有什么问题？',
-        '最近运气怎么样？',
-        '我有个客户能成交吗？',
-        '职位有晋升空间吗',
-    ]
-})
 
 // 聊天列表
 const chatList = reactive({
@@ -92,9 +76,18 @@ const createChat = () => {
     })
 }
 
+// 切换种类
+const handleChangeType = (type) => {
+    currentType.value = type
+    getHistory()
+}
+
 // 历史记录
 const getHistory = () => {
-    pushChatList({ isAi: true, type: 2 })
+    clearChartList()
+    // 普通预测 2 ，股票预测 4
+    let type = currentType.value == 'primary' ? 2 : 4;
+    pushChatList({ isAi: true, type: type })
 }
 
 // 处理聊天列表
@@ -112,6 +105,11 @@ const deleteChatList = (i) => {
     chatList.list.splice(1, 2)
 }
 
+// 清理聊天记录
+const clearChartList = () => {
+    chatList.list = []
+}
+
 // scroll smooth
 const elementScroll = () => {
     chatroomContent.value.scrollTo({ 
@@ -122,12 +120,12 @@ const elementScroll = () => {
 
 // 用户选择的数字
 const handleSelectDifen = (e) => {
-    let value = e
+    let value = e.number
     if (!userSelectNumber.value) {
         pushChatList({ isAi: false, content: value })
 
         // 选择了数据之后，计算起课，并且显示 input 输入框
-        pushChatList({ isAi: true, type: 3, difen: value })
+        pushChatList({ isAi: true, type: e.type == 'primary' ? 3 : 5, difen: value })
         userSelectNumber.value = value
     }
 }
@@ -257,29 +255,23 @@ const signOut = () => {
     <div class="turntable-container">
 
         <div class="inner">
-            <div class="question-list">
-                <p class="title">不确定要问什么？试试点击这里⬇</p>
-                <div class="question">
-                    <p 
-                        class="question-item" 
-                        :data-aos-delay="500 * i" 
-                        data-aos="fade-up" 
-                        v-for="(item, index) in questionList.list" 
-                        :key="index"
-                        @click="handlePreviewQuestion(item)"
-                    >{{ item }}</p>
-                </div>
-            </div>
+            <Question type="primary" @change="handlePreviewQuestion" />
             <div class="inner-chat gap-y-2">
     
-                <div class="chat-title flex items-center w-full py-2">
-                    <!-- <i @click="$router.go(-1)" class="icon i-solar-map-arrow-left-bold mr-2"></i> -->
-                    <div class="title-box flex-1">
-                        <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
-                        <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
-                        <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
+                <div class="chat-title w-full">
+                    <div class="header flex items-center py-2">
+                        <div class="title-box flex-1">
+                            <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
+                            <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
+                            <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
+                        </div>
+                        <i class="icon i-solar-share-bold"></i>
                     </div>
-                    <i class="icon i-solar-share-bold"></i>
+                    <!-- tab -->
+                    <div class="tab-box">
+                        <a-button @click="handleChangeType('primary')" :type="currentType == 'primary' ? 'primary' :'outline'" size="small">运势</a-button>
+                        <a-button @click="handleChangeType('stock')" :type="currentType == 'stock' ? 'primary' :'outline'" size="small">股票</a-button>
+                    </div>
                 </div>
     
                 <!-- 聊天对话 -->
@@ -309,35 +301,7 @@ const signOut = () => {
         display: flex;
         align-items: flex-start;
         margin: 0 auto;
-        .question-list {
-            width: 320px;
-            // background: rgba(200, 255, 255, 0.2);
-            // border-radius: 8px;
-            // margin-top: 12px;
-            // padding: 0 12px;
-            .title {
-                font-size: 20px;
-                padding: 40px 0;
-            }
-
-            .question {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                .question-item {
-                    background-color: #66F132;
-                    font-size: 18px;
-                    color: black;
-                    margin: 10px 0;
-                    padding: 12px;
-                    border-radius: 99px;
-                    cursor: pointer;
-                    &:hover {
-                        opacity: 0.8;
-                    }
-                }
-            }
-        }
+        
         .inner-chat {
             flex: 1;
             height: 100vh;
@@ -347,19 +311,31 @@ const signOut = () => {
     
             .chat-title {
                 border-bottom: 1px solid rgba(150,170,243,0.3);
-                .title-box {
-                    font-size: 22px;
-                    padding: 0;
-                    line-height: 1;
+
+                .header {
+
+                    .title-box {
+                        font-size: 22px;
+                        padding: 0;
+                        line-height: 1;
+                    }
+                    i {
+                        font-size: 24px;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
                 }
-                i {
-                    font-size: 24px;
-                    cursor: pointer;
-                    &:hover {
-                        opacity: 0.8;
+                .tab-box {
+                    display: flex;
+                    align-items: center;
+                    .arco-btn {
+                        border: 0 0 0 0;
                     }
                 }
             }
+
     
             .chat-main {
                 height: calc(100vh - 55px - 80px);

@@ -28,7 +28,7 @@ const emit = defineEmits(['change'])
 
 const handleSelectNumber = (number) => {
     emit('change', {
-        type: 'difen',
+        type: 'primary',
         number: number
     })
 }
