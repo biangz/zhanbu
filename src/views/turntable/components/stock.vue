@@ -718,21 +718,24 @@ const handleCalculateRumu = () => {
     ]
     let siHaiFilter = siHai.filter(v => {
         return !!v.rumuWuxing
-    }).filter(item => { // 当4位里有丑、未的时候，丑未不算入4位里的墓，四柱时间的墓仍保留
-        const { value } = item;
-        return value !== '丑' && value !== '未';
-    });
+    })
     rumuSizhu.list = rumuSizhu.list.concat(siHaiFilter) // 拿到的 rumusizhu ，所有的入墓数据
     
     rumuSizhu.list.forEach((v,i) => {
         v.rumuWuxing.forEach((item, j) => {
+
+            // 丑不入未
+            const isExcludedChou = 
+                (v.value === '未' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('丑')) ||
+                (v.value === '丑' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('未'));
+
             
             // 戌不入辰墓，按冲算
             const isExcluded =
                 (v.value === '戌' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('辰')) ||
                 (v.value === '辰' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('戌'));
 
-            if (!isExcluded) {
+            if (!isExcluded || !isExcludedChou) {
                 // 跟每个 4 亥五行对比
                 if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
                     console.log('人元:', renyuanResult.wuxing, item)
