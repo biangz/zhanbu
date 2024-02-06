@@ -1,6 +1,6 @@
 <template>
     <div class="difen-main">
-        <img class="image" src="../../../assets/images/stock.jpg" alt="">
+        <img class="image" src="../../../assets/images/stock.png" alt="">
         <a-input v-model="price" placeholder="" :size="'large'" />
         <AnButton @click="handleSelectNumber" />
     </div>
