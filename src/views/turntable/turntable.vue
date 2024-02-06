@@ -327,6 +327,7 @@ const goBack = () => {
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 0 24px;
     
             .chat-title {
                 border-bottom: 1px solid rgba(150,170,243,0.3);
