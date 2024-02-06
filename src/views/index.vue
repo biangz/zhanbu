@@ -35,8 +35,8 @@ const store = useAuthStore()
 const router = useRouter()
 const show = ref(false)
 const tabList = ref([
-    { label: '测事', id: 1 },
-    { label: '股票', id: 2 },
+    { label: '通用', id: 1 },
+    { label: '涨跌', id: 2 },
 ])
 
 const handleInputNumber = (e) => {

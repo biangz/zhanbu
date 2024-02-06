@@ -44,3 +44,14 @@ export function initTypeList(data = {}) {
         data: qs.stringify(data),
     });
 }
+
+export function initCatques(data = {}) {
+    return service({
+        url: `/api/v1/eli/sys/catques`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+        data: qs.stringify(data),
+    });
+}

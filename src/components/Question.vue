@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, onMounted, reactive, watch, ref } from 'vue';
-import { coinList } from '@/api'
+import { initCatques } from '@/api'
 const props = defineProps({
     type: {
         default: 'primary'
@@ -18,7 +18,7 @@ const defaultQuestionList = ref([
     '我和男朋友发展会怎么样，会结婚吗？',
     '我喜欢一个女孩，她对我有意思吗？',
     '家里的老人身体健康怎么样？',
-    '我现在工作的地方对我的发展有利吗，领导对我评价怎么样？',
+    '我现在工作的地方对我的发展有利吗？',
     '我想到外地发展怎么样，会比现在好吗？',
     '我的宠物身体健康怎么样？',
     '最近身体不舒服，有没有什么问题？',
@@ -35,22 +35,24 @@ const handlePreviewQuestion = (q) => {
     emits('change', q)
 }
 
-watch(
-    () => props.type,
-    (val) => {
-        if (val == 'primary') {
-            questionList.list = defaultQuestionList
-        } else {
-            questionList.list = coinQuestionList
-        }
+const randomList = () => {
+    const selectedQuestions = [];
+    const questionsCopy = defaultQuestionList.value.slice();
+
+    while (selectedQuestions.length < 8 && questionsCopy.length > 0) {
+        const randomIndex = Math.floor(Math.random() * questionsCopy.length);
+        const selectedQuestion = questionsCopy.splice(randomIndex, 1)[0];
+        selectedQuestions.push(selectedQuestion);
     }
-)
+
+    console.log('selectedQuestions>', selectedQuestions)
+    return selectedQuestions
+}
 
 onMounted(() => {
-    coinList().then(res => {
-        coinQuestionList.value = res.data
+    initCatques().then(res => {
+        questionList.list = res.data || randomList()
     })
-    questionList.list = defaultQuestionList
 })
 </script>
 
