@@ -719,45 +719,46 @@ const handleCalculateRumu = () => {
     let siHaiFilter = siHai.filter(v => {
         return !!v.rumuWuxing
     })
-    rumuSizhu.list = rumuSizhu.list.concat(siHaiFilter) // 拿到的 rumusizhu ，所有的入墓数据
+    
+    // 判断 4 亥是否同时存在 '丑' '未'，同时存在，丑未不算入4位里的墓，四柱时间的墓仍保留
+    let allExist = ["丑", "未"].every(value => siHaiFilter.some(item => item.value === value));
+    let filteredArr;
+    if (allExist) { // 如果同时存在，则不参与入墓
+        filteredArr = siHaiFilter.filter(item => !["丑", "未"].includes(item.value));
+    } else {
+        filteredArr = siHaiFilter
+    }
+    rumuSizhu.list = rumuSizhu.list.concat(filteredArr) // 拿到的 rumusizhu ，所有的入墓数据
     
     rumuSizhu.list.forEach((v,i) => {
+        // 戌不入辰墓，按冲算
+        const isExcluded = (v.value === '戌' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('辰')) || (v.value === '辰' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('戌'));
+
+        if(isExcluded) return;
+
         v.rumuWuxing.forEach((item, j) => {
 
-            // 丑不入未
-            const isExcludedChou = 
-                (v.value === '未' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('丑')) ||
-                (v.value === '丑' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('未'));
-
-            
-            // 戌不入辰墓，按冲算
-            const isExcluded =
-                (v.value === '戌' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('辰')) ||
-                (v.value === '辰' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('戌'));
-
-            if (!isExcluded || !isExcludedChou) {
-                // 跟每个 4 亥五行对比
-                if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
-                    console.log('人元:', renyuanResult.wuxing, item)
-                    renyuanResult.rumu.push(v)
-                    requestParamsRumu.push(`人元入${v.name}墓`)
-                }
-                if (guishenResult.wuxing === item && v.name != guishenResult.sign) {
-                    console.log('贵将:', guishenResult.wuxing, item)
-                    guishenResult.rumu.push(v)
-                    requestParamsRumu.push(`贵将入${v.name}墓`)
-                }
-                if (shenjiangResult.wuxing === item && v.name != shenjiangResult.sign) {
-                    console.log('神将:', shenjiangResult.wuxing, item)
-                    shenjiangResult.rumu.push(v)
-                    requestParamsRumu.push(`神将入${v.name}墓`)
-                }
-                if (difenResult.wuxing === item && v.name != difenResult.sign) {
-                    console.log('地分:', difenResult.wuxing, item)
-                    difenResult.rumu.push(v)
-                    requestParamsRumu.push(`地分入${v.name}墓`)
-                } 
+            // 跟每个 4 亥五行对比
+            if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
+                if(allExist && ["丑", "未"].includes(renyuanResult.name)) return;
+                renyuanResult.rumu.push(v)
+                requestParamsRumu.push(`人元入${v.name}墓`)
             }
+            if (guishenResult.wuxing === item && v.name != guishenResult.sign) {
+                if(allExist && ["丑", "未"].includes(guishenResult.name)) return;
+                guishenResult.rumu.push(v)
+                requestParamsRumu.push(`贵将入${v.name}墓`)
+            }
+            if (shenjiangResult.wuxing === item && v.name != shenjiangResult.sign) {
+                if(allExist && ["丑", "未"].includes(shenjiangResult.name)) return;
+                shenjiangResult.rumu.push(v)
+                requestParamsRumu.push(`神将入${v.name}墓`)
+            }
+            if (difenResult.wuxing === item && v.name != difenResult.sign) {
+                if(allExist && ["丑", "未"].includes(difenResult.name)) return;
+                difenResult.rumu.push(v)
+                requestParamsRumu.push(`地分入${v.name}墓`)
+            } 
         })
     })
 

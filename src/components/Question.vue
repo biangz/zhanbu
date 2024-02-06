@@ -45,7 +45,6 @@ const randomList = () => {
         selectedQuestions.push(selectedQuestion);
     }
 
-    console.log('selectedQuestions>', selectedQuestions)
     return selectedQuestions
 }
 
