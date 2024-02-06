@@ -52,7 +52,7 @@
                 <span>用爻：</span>
                 <div class="w-6">{{ yongyao }}</div>
             </h5>
-            <h5 class="flex items-center text-right pt-2">
+            <!-- <h5 class="flex items-center text-right pt-2">
                 <fieldset>
                     <legend>纳音</legend>
                     <h5 class="flex items-center text-right">
@@ -66,7 +66,7 @@
                         <div class="w-8">{{ shenjiangGanResult.shengke }}</div>
                     </h5>
                 </fieldset>
-            </h5>
+            </h5> -->
             
         </template>
     </div>
