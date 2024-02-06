@@ -1,8 +1,8 @@
 <template>
     <div class="qike-main text-left">
         <div class="flex items-center pb-4">
-            <span>股票开盘价：</span>
-            <input type="text" v-model="userInput" placeholder="股票开盘价">
+            <span>开盘价：</span>
+            <input type="text" v-model="userInput" placeholder="请输入当日开盘价">
             <button @click="getSizhu">计算</button>
         </div>
         <h5>四柱：{{ sizhu.year }} \ {{ sizhu.month }} \ {{ sizhu.day }} \ {{ sizhu.time }}</h5>
