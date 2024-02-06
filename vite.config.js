@@ -31,7 +31,7 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         modifyVars: {
-          'arcoblue-6': '#C5A75A',
+          'arcoblue-6': '#66F132',
           'orange-6': '#66F132',
           // 'color-primary-6': '#13c2c2',
           // 'color-primary-6': `rgb(var(~'@{arco-cssvars-prefix}-green-6'))`

@@ -1,7 +1,7 @@
 import service from '@/axios';
 import qs from 'qs';
 
-export function calculateFourPillars(params) {
+export function calculateFourPillars(params = {}) {
     return service({
         url: `/api/v1/eli/calculateFourPillars`,
         headers: {

@@ -4,25 +4,27 @@ import { reactive, ref, markRaw, onMounted } from 'vue';
 import { useAuthStore } from '@/store'
 import { SpwsClient, calculateShenKe } from '@/api';
 import { loadGapiInsideDOM, loadAuth2 } from 'gapi-script';
+import { useRouter } from 'vue-router'
 import Decimal from 'decimal.js';
 import ChatItem from './components/chatItem.vue';
+import UserInput from './components/selectDifen.vue'
 import Question from '@/components/Question.vue'
+import StockInput from './components/stockInput.vue'
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
 const $toast = useToast();
+const router = useRouter()
 const userStore = useAuthStore()
 const chatroomContent = ref(null)
+const showQuestion = ref(true)
 let ws = null;
 
 // 用户选择的数字
-const userSelectNumber = ref(0);
 const sendMessage = ref('')
 const showError = ref(false)
 const isSend = ref(false)
 const calId = ref(0)
-const currentType = ref('primary')
-
 
 // 聊天列表
 const chatList = reactive({
@@ -76,20 +78,44 @@ const createChat = () => {
     })
 }
 
-// 切换种类
-const handleChangeType = (type) => {
-    currentType.value = type
-    userSelectNumber.value = ''
-    ws.close()
+// 起课完成
+const qikeFinish = (e) => {
+    if (userStore.forcastType == 1) {
+        pushChatList({ isAi: true, content: '所求何事在这里与老夫沟通' })
+    }
+    // 0 人元 1 贵神 2 神将 3 地分
+    calculateShenKe({
+        dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
+        kongwang: e.requestParamsKW.join(','),
+        rumu: e.requestParamsRumu.join(',')
+    }).then(res => {
+        if (res.code == 200) {
+            calId.value = new Decimal(res.data.cal_id)
+        }
+    })
+}
+
+// 重新起课
+const handleAgainQike = () => {
+    userStore.setAgainQike()
+}
+// 重新起课结果
+const handleAgainQikeResult = (e) => {
+    userStore.setForcastUserInput(e.number)
     getHistory()
 }
 
 // 历史记录
 const getHistory = () => {
     clearChartList()
-    // 普通预测 2 ，股票预测 4
-    let type = currentType.value == 'primary' ? 2 : 4;
-    pushChatList({ isAi: true, type: type })
+    pushChatList({ isAi: true, content: '孙膑为您起课如下：' })
+    // 1. 拿到起课结果
+    // 普通起课 3 ，股票起课 5
+    pushChatList({ 
+        isAi: true, 
+        type: userStore.forcastType == 1 ? 3 : 5, 
+        difen: userStore.forcastUserInput 
+    })
 }
 
 // 处理聊天列表
@@ -120,58 +146,33 @@ const elementScroll = () => {
     })
 }
 
-// 用户选择的数字
+// 用户输入数字处理
 const handleSelectDifen = (e) => {
     let value = e.number
-    if (!userSelectNumber.value) {
-        pushChatList({ isAi: false, content: value })
+    
+    pushChatList({ isAi: false, content: value })
 
-        // 选择了数据之后，计算起课，并且显示 input 输入框
-        pushChatList({ isAi: true, type: e.type == 'primary' ? 3 : 5, difen: value })
-        userSelectNumber.value = value
-    }
-}
-
-// 起课完成
-const qikeFinish = (e) => {
-    if (e.type == 'primary') {
-        pushChatList({
-            isAi: true,
-            content: '请说出你的问题',
-        })
-    }
-    // 0 人元 1 贵神 2 神将 3 地分
-    calculateShenKe({
-        dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
-        kongwang: e.requestParamsKW.join(','),
-        rumu: e.requestParamsRumu.join(',')
-    }).then(res => {
-        if (res.code == 200) {
-            calId.value = new Decimal(res.data.cal_id)
-        }
-    })
+    // 选择了数据之后，计算起课，并且显示 input 输入框
+    pushChatList({ isAi: true, type: e.type == 'primary' ? 3 : 5, difen: value })
 }
 
 // 选择预设问题
 const handlePreviewQuestion = (question) => {
-    if (!userSelectNumber.value) {
-        return $toast.open({
-            message: '在挑选问题之前，请先点击按钮开始您的数字起课之旅！',
-            duration: 3000,
-            type: 'info',
-            position: 'top-right'
-        });
-    }
     sendMessage.value = question
+    showQuestion.value = false
     handleSendMessage()
 }
-
 
 // 发送用户输入的内容
 const handleSendMessage = () => {
     if (!sendMessage.value) {
         showError.value = true
         return;
+    }
+
+    if (!userStore.token) {
+        showQuestion.value = true
+        return $toast.warning('请登录体验完整功能');
     }
 
     showError.value = false
@@ -252,6 +253,10 @@ const signOut = () => {
     });
 }
 
+const goBack = () => {
+    router.go(-1)
+}
+
 
 </script>
 
@@ -259,34 +264,44 @@ const signOut = () => {
     <div class="turntable-container">
 
         <div class="inner">
-            <Question :type="currentType" @change="handlePreviewQuestion" />
-            <div class="inner-chat gap-y-2">
+            <!-- <Question :type="currentType" @change="handlePreviewQuestion" /> -->
+            <div class="inner-chat">
     
                 <div class="chat-title w-full">
                     <div class="header flex items-center py-2">
+                        <i @click="goBack()" class="i-solar-double-alt-arrow-left-linear mr-2"></i>
                         <div class="title-box flex-1">
                             <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
                             <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
                             <p v-if="userStore.user?.email" class="mt-1 text-[#9E9587]">{{ userStore.user?.email }}</p>
                         </div>
-                        <i class="icon i-solar-share-bold"></i>
+                        <div class="flex items-center">
+                            <a-tooltip content="点击重新起课断事">
+                                <i @click="handleAgainQike" class="icon i-solar-restart-bold"></i>
+                            </a-tooltip>
+                        </div>
                     </div>
-                    <!-- tab -->
-                    <div class="tab-box">
-                        <a-button @click="handleChangeType('primary')" :type="currentType == 'primary' ? 'primary' :'outline'" size="small">运势</a-button>
-                        <a-button @click="handleChangeType('stock')" :type="currentType == 'stock' ? 'primary' :'outline'" size="small">股票</a-button>
+                </div>
+
+                <!-- 重新起课 -->
+                <div v-if="!userStore.forcastUserInput">
+                    <UserInput v-if="userStore.forcastType == 1" @change="handleAgainQikeResult" />
+                    <StockInput v-else @change="handleAgainQikeResult" />
+                </div>
+                <div v-else class="inner-chat-inner">
+                    <!-- 聊天对话 -->
+                    <div class="chat-main w-full" ref="chatroomContent">
+                        <chat-item class="flex-shrink-0" v-for="item, index in chatList.list" :item="item" :key="index" @select="handleSelectDifen" @finish="qikeFinish" />
+                    </div>
+
+                    <Question v-if="showQuestion && userStore.forcastType == 1" @change="handlePreviewQuestion"/>
+        
+                    <div class="input-main flex items-center gap-x-4 w-full my-2 px-4 py-1" :class="[showError?'error':'']">
+                        <input v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" placeholder="Type a message" :class="[showError?'error':'']">
+                        <a-button :loading="isSend" type="text" @click="handleSendMessage" class="send-button"><i class="i-solar-archive-up-minimlistic-bold-duotone"></i></a-button>
                     </div>
                 </div>
     
-                <!-- 聊天对话 -->
-                <div class="chat-main w-full" ref="chatroomContent">
-                    <chat-item class="flex-shrink-0" v-for="item, index in chatList.list" :item="item" :key="index" @select="handleSelectDifen" @finish="qikeFinish" />
-                </div>
-    
-                <div v-if="userSelectNumber" class="input-main flex items-center gap-x-4 w-full my-2 px-4 py-1" :class="[showError?'error':'']">
-                    <input v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" placeholder="Type a message" :class="[showError?'error':'']">
-                    <a-button :loading="isSend" type="text" @click="handleSendMessage" class="send-button"><i class="i-solar-archive-up-minimlistic-bold-duotone"></i></a-button>
-                </div>
                 
             </div>
         </div>
@@ -324,7 +339,7 @@ const signOut = () => {
                         line-height: 1;
                     }
                     i {
-                        font-size: 24px;
+                        font-size: 30px;
                         cursor: pointer;
                         &:hover {
                             opacity: 0.8;
@@ -340,14 +355,21 @@ const signOut = () => {
                 }
             }
 
-    
+            .inner-chat-inner {
+                width: 100%;
+                height: calc(100vh - 80px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             .chat-main {
-                height: calc(100vh - 55px - 80px);
+                flex: 1;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 overflow-x: hidden;
                 overflow-y: auto;
+                padding: 24px 0;
                 ::-webkit-scrollbar {
                     display: none; /* Chrome Safari */
                 }
@@ -356,7 +378,7 @@ const signOut = () => {
             }
     
             .input-main {
-                border: 1px solid rgba(150,170,243,0.3);
+                border: 1px solid #66F132;
                 border-radius: 99px;
                 &.error {
                     border-color: #C14E56;

@@ -1,7 +1,7 @@
 <template>
     <header class="stiky top-0 w-full flex items-center md:px-3">
-        <!-- <Logo class="logo block w-7" @click="$router.push('/')" /> -->
-        <!-- <div class="flex items-center gap-x-4 ml-auto">
+        <Logo class="logo block w-7" @click="$router.push('/')" />
+        <div class="flex items-center gap-x-4 ml-auto">
             <a-dropdown trigger="hover" v-if="authStore.user">
                 <button class="login-button">{{ authStore.user.name }}</button>
                 <template #content>
@@ -10,7 +10,7 @@
             </a-dropdown>
             <button v-show="!authStore.user" class="login-button" id="customBtn">Login</button>
             
-        </div> -->
+        </div>
     </header>
 </template>
 
@@ -86,7 +86,7 @@ const handleSelect = (v) => {
 header {
     box-sizing: border-box;
     height: var(--header-height);
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20));
+    background: black;
     position: relative;
     // box-shadow: 0px 0px 82px 0px rgba(150, 170, 243, 0.60);
     backdrop-filter: blur(14px);
@@ -95,7 +95,7 @@ header {
     .login-button {
         font-size: 24px;
         color: white;
-        background-color: #C5A75A;
+        background-color: #66F132;
         border-radius: 99px;
         border: none;
         padding: 14px 24px;

@@ -1,59 +1,101 @@
 <template>
     <div class="difen-main">
-        <dl>
-            <dt class="title">
-                <MyTypeIt :class-name="'select-number-title'" :values="['命运指尖，占卜乐趣，先让我们来选一个你喜欢的数字开始吧：']" /></dt>
-            <dd class="content flex items-center gap-1 flex-wrap" data-aos-delay="500" data-aos="fade-up">
+        <div v-if="!store.userSelectType">
+            <img class="banner" src="../../../assets/images/type.png" alt="">
+            <div class="group-button mt-4">
                 <a-button 
-                    v-for="item,index in numberList" 
-                    :key="item" 
-                    class="number-button" 
-                    shape="round" 
-                    status="warning" 
-                    type="primary"
-                    @click="handleSelectNumber(item)"
-                >{{ item }}</a-button>
-            </dd>
-        </dl>
+                    @click="handleCheckType(item)" 
+                    v-for="item, index in typeList" 
+                    :key="index" 
+                    :type="'outline'"
+                >{{ item.name_cn }}</a-button>
+            </div>
+        </div>
+        <div v-else>
+            <img class="image" src="../../../assets/images/input.png" alt="">
+            <a-input v-model="number" placeholder="" :size="'large'" />
+    
+            <AnButton @click="handleSelectNumber" />
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import AOS from 'aos';
-import MyTypeIt from '@/components/TypeIt.vue';
-const numberList = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-
+import { useAuthStore } from '@/store'
+import { initTypeList } from '@/api';
+import AnButton from '@/components/AnButton.vue';
+const number = ref('')
+const store = useAuthStore()
+const typeList = ref([])
 const emit = defineEmits(['change'])
 
-const handleSelectNumber = (number) => {
+const handleSelectNumber = () => {
+    console.log('number.value:', number.value)
     emit('change', {
         type: 'primary',
-        number: number
+        number: number.value
+    })
+}
+
+const handleCheckType = (type) => {
+    console.log('type:', type)
+    store.setUserSelectType(type.id)
+}
+
+const getTypeList = () => {
+    initTypeList().then(res => {
+        if (res.code == 200) {
+            typeList.value = res.data
+        }
     })
 }
 
 onMounted(() => {
-    AOS.init()
+    getTypeList()
 })
 
 </script>
 
 <style scoped lang="less">
 .difen-main {
-    .number-button {
-        color: black;
-        // color: var(--text-color);
+    width: 800px;
+    margin: 0 auto;
+    .banner {
+        display: block;
+        width: 100%;
+    }
 
+    .group-button {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        .arco-btn {
+            min-width: 180px;
+        }
     }
-    .title {
-        // background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
-        background: #66F132;
-        padding: 18px 18px;
-        color: black;
+
+    .image {
+        width: 800px;
+        display: block;
+        margin: 0 auto;
     }
-    .content {
-        padding: 18px;
+
+    .arco-input-wrapper {
+        background-color: transparent;
+        border: 1px solid gray;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 24px;
+        color: white;
+        width: 200px;
+        margin: 12px auto;
+        display: block;
+
+        .arco-input.arco-input-size-large {
+            text-align: center;
+            font-size: 30px;
+        }
     }
 }
 </style>

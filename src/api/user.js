@@ -33,3 +33,14 @@ export function coinList(data = {}) {
         data: qs.stringify(data),
     });
 }
+
+export function initTypeList(data = {}) {
+    return service({
+        url: `/api/v1/eli/sys/catalog`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+        data: qs.stringify(data),
+    });
+}

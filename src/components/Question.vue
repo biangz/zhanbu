@@ -16,7 +16,7 @@ const defaultQuestionList = ref([
     '看看今年会不会遇到贵人帮助我在事业上发展?',
     '我今年有新的项目做吗？',
     '我和男朋友发展会怎么样，会结婚吗？',
-    '我喜欢一个女孩，我能追求到吗，她对我有意思吗？',
+    '我喜欢一个女孩，她对我有意思吗？',
     '家里的老人身体健康怎么样？',
     '我现在工作的地方对我的发展有利吗，领导对我评价怎么样？',
     '我想到外地发展怎么样，会比现在好吗？',
@@ -56,11 +56,7 @@ onMounted(() => {
 
 <template>
     <div class="question-list">
-        <p class="title">不确定要问什么？试试点击这里⬇</p>
-        <div class="question" 
-            :data-aos-delay="1000" 
-            data-aos="fade-up" 
-            data-aos-offset="0"
+        <div class="question"
         >
             <p 
                 class="question-item" 
@@ -74,31 +70,23 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .question-list {
-    width: 320px;
-    // background: rgba(200, 255, 255, 0.2);
-    // border-radius: 8px;
-    // margin-top: 12px;
-    // padding: 0 12px;
-    max-height: 100vh;
+    width: 100%;
     overflow: scroll;
-    .title {
-        font-size: 20px;
-        padding: 40px 0;
-    }
-
     .question {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 6px;
         .question-item {
             background-color: #66F132;
-            font-size: 18px;
+            font-size: 14px;
             color: black;
-            margin: 10px 0;
             padding: 6px 24px;
             border-radius: 99px;
             cursor: pointer;
             text-transform: uppercase;
+            flex-shrink: 0;
             &:hover {
                 opacity: 0.8;
             }

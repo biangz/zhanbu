@@ -17,7 +17,6 @@ let routes = [
       {
         path: '/',
         component: () => import("@/views/index.vue"),
-        redirect: '/turn',
         name: 'Index',
         meta: {
           loginRequired: false,

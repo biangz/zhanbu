@@ -1,20 +1,14 @@
 <template>
     <div class="difen-main">
-        <p class="title">今日股票预测，请输入今日开盘价:</p>
-        <a-input-search 
-            :style="{width:'320px'}" 
-            placeholder="Please input" 
-            @search="handleSelectNumber" 
-            button-text="Comfirm" 
-            search-button
-            v-model="price"
-        />
+        <img class="image" src="../../../assets/images/stock.jpg" alt="">
+        <a-input v-model="price" placeholder="" :size="'large'" />
+        <AnButton @click="handleSelectNumber" />
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import AOS from 'aos';
+import AnButton from '@/components/AnButton.vue';
 const price = ref('')
 const emit = defineEmits(['change'])
 
@@ -26,23 +20,34 @@ const handleSelectNumber = () => {
 }
 
 onMounted(() => {
-    AOS.init()
+    
 })
 
 </script>
 
 <style scoped lang="less">
 .difen-main {
-    background: #66F132;
-    padding: 18px;
 
-    .title {
-        color: black;
-        padding-bottom: 12px;
+    .image {
+        width: 800px;
+        display: block;
+        margin: 0 auto;
     }
 
-    :deep(.arco-input-search-btn) {
-        background-color: black;
+    .arco-input-wrapper {
+        background-color: transparent;
+        border: 1px solid gray;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 24px;
+        color: white;
+        width: 300px;
+        margin: 12px auto;
+        display: block;
+        .arco-input.arco-input-size-large {
+            text-align: center;
+            font-size: 30px;
+        }
     }
 }
 </style>

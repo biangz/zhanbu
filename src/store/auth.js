@@ -5,14 +5,19 @@ import { googleLogin, loginUserInfo } from '@/api'
 export const useAuthStore = defineStore('auth', {
     state: () => ({ 
         _googleUserInfo: null,
-
         _token: getToken() || '',
         _user: null,
+        _forcastType: sessionStorage.getItem('forcastType') ?? 1, // 1 普通 2 股票
+        _userSelectType: sessionStorage.getItem('userSelectType') ?? null,
+        _forcastUserInput: sessionStorage.getItem('userInput') ?? '',
     }),
     getters: {
         googleUserInfo: (state) => state._googleUserInfo,
         token: state => state._token,
         user: state => state._user,
+        forcastType: state => state._forcastType,
+        userSelectType: state => state._userSelectType,
+        forcastUserInput: state => state._forcastUserInput,
     },
     actions: {
         setToken(t) {
@@ -21,6 +26,31 @@ export const useAuthStore = defineStore('auth', {
 
         setGoogleUser(info) {
             this._googleUserInfo = info
+        },
+
+        setForcastType(type) {
+            this._forcastType = type
+            sessionStorage.setItem('forcastType', this._forcastType)
+        },
+
+        setUserSelectType(type) {
+            this._userSelectType = type
+            sessionStorage.setItem('userSelectType', this._userSelectType)
+        },
+
+        setForcastUserInput(number) {
+            if (!number) {
+                return this._forcastUserInput = ''
+            };
+            this._forcastUserInput = number
+            sessionStorage.setItem('userInput', this._forcastUserInput)
+        },
+
+        setAgainQike(again) {
+            sessionStorage.removeItem('userSelectType')
+            this.setUserSelectType('')
+            sessionStorage.removeItem('userInput')
+            this.setForcastUserInput('')
         },
 
         userLoginToken(id_token) {
@@ -57,6 +87,6 @@ export const useAuthStore = defineStore('auth', {
             removeToken()
             this._token = ''
             this._user = null
-        }
+        },
     },
 })

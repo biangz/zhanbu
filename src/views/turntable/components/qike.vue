@@ -103,6 +103,7 @@ watch(
 )
 
 onMounted(() => {
+    console.log()
     console.log('onMounted qike:', props.difen)
     getSizhu()
 })

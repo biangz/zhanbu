@@ -1,105 +1,112 @@
 <template>
     <div class="index-container">
-        <div class="typing animate" @click="handleGotoChat"></div>
+        <!-- 首页图片 5s -->
+        <img :class="['image']" src="../assets/images/home-person.png" alt="">
+
+        <!-- 内容 -->
+        <div class="main-container mt-4" :class="[show ? 'show' : '']">
+            <div class="flex items-center">
+                <a-button class="check-button" @click="handleCheck(item)" v-for="item, index in tabList" :key="index"
+                    :type="store.forcastType == item.id ? 'primary' : 'outline'">{{ item.label }}</a-button>
+            </div>
+
+            <!-- 测事 -->
+            <div v-if="store.forcastType == 1">
+                <UserInput @change="handleInputNumber" />
+            </div>
+
+            <!-- 股票 -->
+            <div v-if="store.forcastType == 2">
+                <StockInput @change="handleInputNumber"/>
+            </div>
+            
+        </div>
     </div>
 </template>
 
 <script setup>
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'vue-router';
-import { ref, onMounted, reactive } from 'vue';
-import { IconClose, IconArrowRight } from '@arco-design/web-vue/es/icon';
-import AOS from "aos";
+import { ref, onMounted, watch } from 'vue';
+import UserInput from './turntable/components/selectDifen.vue'
+import StockInput from './turntable/components/stockInput.vue'
 
 const store = useAuthStore()
 const router = useRouter()
+const show = ref(false)
+const tabList = ref([
+    { label: '测事', id: 1 },
+    { label: '股票', id: 2 },
+])
 
-const handleIncrece = () => {
-    store.increment()
+const handleInputNumber = (e) => {
+    console.log(e.number)
+    store.setForcastUserInput(e.number)
+    handleGotoChat()
 }
 
 const handleGotoChat = () => {
-  router.push('/turn')
+    router.push('/turn')
 }
+
+const handleCheck = (item) => {
+    store.setForcastType(item.id)
+}
+
 
 // onMounted
 onMounted(() => {
-    AOS.init();
-    console.log(store.token)
+    store.setAgainQike()
+    setTimeout(() => {
+        show.value = true
+    }, 3000)
 })
+
 
 </script>
 
 <style scoped lang="less">
-@keyframes type {
-  from {
-    width: 0;
-  }
-  to {
-    width: 21ch;
-  }
-}
-
-@keyframes type2 {
-  from {
-    width: 16ch;
-    content: "Hello, I'm Chrissy. "
-  }
-  to {
-    width: 20ch;
-    content: "Hello, I'm Chrissy. "
-  }
-}
-
-@keyframes type3 {
-  from {
-    width: 20ch;
-    content: "Hello, I'm Chrissy. Welcome to my Website!"
-  }
-  to {
-    width: 42ch;
-    content: "Hello, I'm Chrissy. Welcome to my Website!"
-  }
-}
-
-@keyframes writer {
-  50% {
-    border-color: transparent;
-  }
-}
-
-@keyframes delete {
-  from {
-    width: 21ch;
-  }
-  to {
-    width: 16ch;
-  }
-}
-
 .index-container {
     min-height: calc(100vh - var(--header-height));
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
-    .typing {
-        font-weight: bold;
-        &.animate {
-            width: 21ch;
-            border-right: 0.1em solid var(--text-color);
-            font-family: monospace;
-            font-size: 48px;
-            animation: type 2.5s steps(20), writer 1s infinite alternate;
-            overflow: hidden;
-            white-space: nowrap;
-            cursor: pointer;
-            &::before { 
-                content: "命运指尖，点击占卜乐趣 →";
-                // animation: type2 1s steps(4) 3s forwards, type3 3s steps(22, end) 6s forwards;
+    // background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
+    background: black;
+
+    .image {
+        width: 500px;
+    }
+
+    .main-container {
+        width: 800px;
+        height: 1100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        background-color: black;
+
+        clip-path: circle(0);
+        transition: clip-path 2s;
+
+        &.show {
+            clip-path: circle(100%);
+        }
+
+        .check-button {
+            border-radius: 0;
+
+            &.arco-btn-primary {
+                color: black;
+            }
+
+            &:first-child {
+                margin-left: auto;
             }
         }
+
     }
-}
-</style>
+}</style>
