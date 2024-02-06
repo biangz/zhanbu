@@ -274,7 +274,7 @@ const signOut = () => {
                     <!-- tab -->
                     <div class="tab-box">
                         <a-button @click="handleChangeType('primary')" :type="currentType == 'primary' ? 'primary' :'outline'" size="small">运势</a-button>
-                        <a-button @click="handleChangeType('stock')" :type="currentType == 'stock' ? 'primary' :'outline'" size="small">股票</a-button>
+                        <a-button @click="handleChangeType('stock')" :type="currentType == 'stock' ? 'primary' :'outline'" size="small">涨跌</a-button>
                     </div>
                 </div>
     

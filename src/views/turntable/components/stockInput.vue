@@ -1,6 +1,6 @@
 <template>
     <div class="difen-main">
-        <p class="title">今日股票预测，请输入今日开盘价:</p>
+        <p class="title">今日涨跌预测，请输入今日开盘价:</p>
         <a-input-search 
             :style="{width:'320px'}" 
             placeholder="Please input" 
