@@ -82,6 +82,8 @@ const createChat = () => {
 const qikeFinish = (e) => {
     if (userStore.forcastType == 1) {
         pushChatList({ isAi: true, content: '所求何事在这里与老夫沟通' })
+    } else {
+        pushChatList({ isAi: true, content: '即将推出，敬请期待！' })
     }
     // 0 人元 1 贵神 2 神将 3 地分
     calculateShenKe({
@@ -269,7 +271,9 @@ const goBack = () => {
     
                 <div class="chat-title w-full">
                     <div class="header flex items-center py-2">
-                        <i @click="goBack()" class="i-solar-double-alt-arrow-left-linear mr-2"></i>
+                        <a-tooltip content="返回首页，重新选择其他分类。">
+                            <i @click="goBack()" class="i-solar-double-alt-arrow-left-linear mr-2"></i>
+                        </a-tooltip>
                         <div class="title-box flex-1">
                             <p v-if="userStore.user?.name" class="font-bold capitalize">{{ userStore.user?.name }}</p>
                             <p v-else id="customBtn" class="font-bold capitalize cursor-pointer">Login</p>
@@ -297,7 +301,7 @@ const goBack = () => {
                     <Question v-if="showQuestion && userStore.forcastType == 1" @change="handlePreviewQuestion"/>
         
                     <div class="input-main flex items-center gap-x-4 w-full my-2 px-4 py-1" :class="[showError?'error':'']">
-                        <input v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" placeholder="Type a message" :class="[showError?'error':'']">
+                        <input :disabled="userStore.forcastType == 2" v-model="sendMessage" @keyup.enter="handleSendMessage" type="text" :placeholder="userStore.forcastType == 1 ? 'Type a message' : '即将推出，敬请期待'" :class="[showError?'error':'']">
                         <a-button :loading="isSend" type="text" @click="handleSendMessage" class="send-button"><i class="i-solar-archive-up-minimlistic-bold-duotone"></i></a-button>
                     </div>
                 </div>

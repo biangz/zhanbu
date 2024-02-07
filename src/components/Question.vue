@@ -81,7 +81,7 @@ onMounted(() => {
         gap: 6px;
         .question-item {
             background-color: #66F132;
-            font-size: 14px;
+            font-size: 16px;
             color: black;
             padding: 6px 24px;
             border-radius: 99px;

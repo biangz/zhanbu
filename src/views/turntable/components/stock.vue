@@ -307,7 +307,7 @@ const handleCalculateShenjiangGan = () => {
 
 let a = [['卯', '辰', '巳', '午', '未', '申'], ['酉', '戌', '亥', '子', '丑', '寅']]
 
-// 贵将计算
+// 贵神计算
 const handleCalculateGuijiang = () => {
     // 1. 日柱天干
     let r = sizhu.day[0]
@@ -359,15 +359,15 @@ const handleCalculateGuijiang = () => {
     // 3. 贵神排序，将丑从起贵结果开始顺序排序（白天顺时，晚上逆时，排到地分
 }
 
-// 贵将干计算
+// 贵神干计算
 const handleCalculateGuijiangGan = () => {
     // 1. 遁数
-    // 2. 以贵将值为截止参照排序
+    // 2. 以贵神值为截止参照排序
     let mod = (guishenResult.number - 1 + dunshuResult.number) % 10
     mod = mod == 0 ? 10 : mod
     guishenGanResult.number = mod
     guishenGanResult.name = tiangan(mod)
-    console.log('>>贵将干计算: ', mod, '遁数：', dunshuResult.number, '贵将：', guishenResult.number)
+    console.log('>>贵神干计算: ', mod, '遁数：', dunshuResult.number, '贵神：', guishenResult.number)
 }
 
 // 阴阳计算
@@ -475,7 +475,7 @@ const findDominantElement = (elements) => {
         dominantElement.forEach(v => {
             if (v.index == 0 ) { // 人元
                 renyuanResult.wangshuai = '旺'
-            } else if (v.index == 1) { // 贵将
+            } else if (v.index == 1) { // 贵神
                 guishenResult.wangshuai = '旺'
             } else if (v.index == 2) { // 神将
                 shenjiangResult.wangshuai = '旺'
@@ -732,7 +732,7 @@ const handleCalculateRumu = () => {
     
     rumuSizhu.list.forEach((v,i) => {
         // 戌不入辰墓，按冲算
-        const isExcluded = (v.value === '戌' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('辰')) || (v.value === '辰' && [renyuanResult.name, guijiangResult.name, shenjiangResult.name, difenResult.name].includes('戌'));
+        const isExcluded = (v.value === '戌' && [renyuanResult.name, guishenResult.name, shenjiangResult.name, difenResult.name].includes('辰')) || (v.value === '辰' && [renyuanResult.name, guishenResult.name, shenjiangResult.name, difenResult.name].includes('戌'));
 
         if(isExcluded) return;
 
@@ -740,22 +740,30 @@ const handleCalculateRumu = () => {
 
             // 跟每个 4 亥五行对比
             if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
-                if(allExist && ["丑", "未"].includes(renyuanResult.name)) return;
+                if (allExist && ["丑", "未"].includes(renyuanResult.name)) return;
+                // 辰不入辰墓
+                if (v.name === '辰' && renyuanResult.name === '辰') return;
                 renyuanResult.rumu.push(v)
                 requestParamsRumu.push(`人元入${v.name}墓`)
             }
             if (guishenResult.wuxing === item && v.name != guishenResult.sign) {
                 if(allExist && ["丑", "未"].includes(guishenResult.name)) return;
+                // 辰不入辰墓
+                if (v.name === '辰' && guishenResult.name === '辰') return;
                 guishenResult.rumu.push(v)
-                requestParamsRumu.push(`贵将入${v.name}墓`)
+                requestParamsRumu.push(`贵神入${v.name}墓`)
             }
             if (shenjiangResult.wuxing === item && v.name != shenjiangResult.sign) {
                 if(allExist && ["丑", "未"].includes(shenjiangResult.name)) return;
+                // 辰不入辰墓
+                if (v.name === '辰' && shenjiangResult.name === '辰') return;
                 shenjiangResult.rumu.push(v)
                 requestParamsRumu.push(`神将入${v.name}墓`)
             }
             if (difenResult.wuxing === item && v.name != difenResult.sign) {
                 if(allExist && ["丑", "未"].includes(difenResult.name)) return;
+                // 辰不入辰墓
+                if (v.name === '辰' && difenResult.name === '辰') return;
                 difenResult.rumu.push(v)
                 requestParamsRumu.push(`地分入${v.name}墓`)
             } 

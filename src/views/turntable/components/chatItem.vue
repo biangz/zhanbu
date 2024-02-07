@@ -59,7 +59,7 @@ onMounted(() => {
 <style lang="less" scoped>
 .chat-item {
     margin: 8px 0;
-    font-size: 16px;
+    font-size: 19px;
     box-shadow: 0 8px 10px rgba(0,0,0,0.2);
     --radius: 22px;
     overflow: hidden;
