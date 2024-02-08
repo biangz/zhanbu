@@ -122,7 +122,7 @@ const getHistory = () => {
 
 // 处理聊天列表
 const pushChatList = (obj) => {
-    chatList.list.push({ timestamp: Date.now(),  ...obj })
+    chatList.list.push({ timestamp: Date.now(), qtype: userStore.userSelectType || '',  ...obj })
 }
 
 // 修改聊天内容

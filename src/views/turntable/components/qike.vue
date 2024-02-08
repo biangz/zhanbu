@@ -702,7 +702,9 @@ const handleCalculateRumu = () => {
     } else {
         filteredArr = siHaiFilter
     }
-    rumuSizhu.list = rumuSizhu.list.concat(filteredArr) // 拿到的 rumusizhu ，所有的入墓数据
+    rumuSizhu.list = rumuSizhu.list.concat(filteredArr).filter(item => {
+        return item.value != '辰'
+    }) // 拿到的 rumusizhu ，所有的入墓数据
     
     rumuSizhu.list.forEach((v,i) => {
         // 戌不入辰墓，按冲算
@@ -715,29 +717,21 @@ const handleCalculateRumu = () => {
             // 跟每个 4 亥五行对比
             if (renyuanResult.wuxing === item && v.name != renyuanResult.sign) {
                 if (allExist && ["丑", "未"].includes(renyuanResult.name)) return;
-                // 辰不入辰墓
-                if (v.name === '辰' && renyuanResult.name === '辰') return;
                 renyuanResult.rumu.push(v)
                 requestParamsRumu.push(`人元入${v.name}墓`)
             }
             if (guijiangResult.wuxing === item && v.name != guijiangResult.sign) {
                 if (allExist && ["丑", "未"].includes(guijiangResult.name)) return;
-                // 辰不入辰墓
-                if (v.name === '辰' && guijiangResult.name === '辰') return;
                 guijiangResult.rumu.push(v)
                 requestParamsRumu.push(`贵神入${v.name}墓`)
             }
             if (shenjiangResult.wuxing === item && v.name != shenjiangResult.sign) {
                 if (allExist && ["丑", "未"].includes(shenjiangResult.name)) return;
-                // 辰不入辰墓
-                if (v.name === '辰' && shenjiangResult.name === '辰') return;
                 shenjiangResult.rumu.push(v)
                 requestParamsRumu.push(`神将入${v.name}墓`)
             }
             if (difenResult.wuxing === item && v.name != difenResult.sign) {
                 if (allExist && ["丑", "未"].includes(difenResult.name)) return;
-                // 辰不入辰墓
-                if (v.name === '辰' && difenResult.name === '辰') return;
                 difenResult.rumu.push(v)
                 requestParamsRumu.push(`地分入${v.name}墓`)
             } 
