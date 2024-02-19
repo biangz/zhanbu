@@ -714,7 +714,7 @@ const handleCalculateRumu = () => {
             } else if (guishenResult.wuxing === item) {
                 console.log('贵将:', renyuanResult.wuxing, item)
                 guishenResult.rumu.push(v)
-                requestParamsRumu.push(`贵将入${v.name}墓`)
+                requestParamsRumu.push(`贵神入${v.name}墓`)
             } else if (shenjiangResult.wuxing === item) {
                 console.log('神将:', renyuanResult.wuxing, item)
                 shenjiangResult.rumu.push(v)
