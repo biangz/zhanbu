@@ -76,7 +76,6 @@
 import { ref, watch, reactive, defineProps, onMounted } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { calculateFourPillars } from '@/api';
-import { useAuthStore } from '@/store'
 import { 
     dizhi, 
     dizhiNumber, 
@@ -96,7 +95,6 @@ import {
 } from '@/utils';
 import Loading from '@/components/Loading.vue'
 const sizhu = reactive({ year: '', month: '', day: '', time: '' })
-const userStore = useAuthStore()
 const loading = ref(true)
 const props = defineProps({
     difen: {
@@ -126,10 +124,7 @@ onMounted(() => {
 
 const getSizhu = () => {
     // 四柱
-    calculateFourPillars({
-        type: userStore.forcastType,
-        rand: userStore.forcastUserInput
-    }).then(res => {
+    calculateFourPillars().then(res => {
         if (res.code == 200) {
             sizhu.year = res.data.year_pillar
             sizhu.month = res.data.month_pillar

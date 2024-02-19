@@ -90,6 +90,8 @@ const qikeFinish = (e) => {
         dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
         kongwang: e.requestParamsKW.join(','),
         rumu: e.requestParamsRumu.join(','),
+        type: userStore.forcastType,
+        rand: userStore.forcastUserInput,
     }).then(res => {
         if (res.code == 200) {
             calId.value = new Decimal(res.data.cal_id)
