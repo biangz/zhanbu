@@ -89,7 +89,7 @@ const qikeFinish = (e) => {
     calculateShenKe({
         dizhi: `${e.renyuan}${e.guijiang}${e.shenjiang}${e.difen}`,
         kongwang: e.requestParamsKW.join(','),
-        rumu: e.requestParamsRumu.join(',')
+        rumu: e.requestParamsRumu.join(','),
     }).then(res => {
         if (res.code == 200) {
             calId.value = new Decimal(res.data.cal_id)
