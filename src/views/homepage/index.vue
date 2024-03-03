@@ -166,7 +166,7 @@ onMounted(() => {
                     <div class="panel w-full md:w-[22rem] px-5 py-4 md:pr-[5rem]">
                         <h2 class="linear text-[0.64rem]">股市涨跌趋势预测</h2>
                         <p class="pr-[3rem] mt-2">元道更专注于精准的比特币、及股市涨跌趋势预测！用户仅需输入比特币或股票开盘价，便可获知丰富的涨跌趋势建议！元道通过25万个的预测案例的分析，精准度高达 <span>95%</span>。</p>
-                        <h1 class="linear text-[0.8rem] mt-4">量化投资</h1>
+                        <h1 class="linear text-[0.8rem] pt-4">量化投资</h1>
                         <div class="skew flex flex-wrap items-center gap-3 mt-3">
                             <div class="skew-i">价值评估</div>
                             <div class="skew-i">投资建设</div>
@@ -227,7 +227,7 @@ onMounted(() => {
                 <div class="grid grid-cols-2 md:grid-cols-5 mt-12 gap-2">
                     <div class="teams">
                         <img src="../../assets/images/banner10/pic-01.webp" alt="">
-                        <h2 class="mt-1 mb-3">Shan he LEE</h2>
+                        <h3 class="mt-1 mb-3">Shan he LEE</h3>
                         <p>首席易学专家</p>
                         <p>300年师承的独家易学密术</p>
                         <p>近30年易学苦心研究成果</p>
@@ -235,7 +235,7 @@ onMounted(() => {
                     </div>
                     <div class="teams">
                         <img src="../../assets/images/banner10/pic-02.webp" alt="">
-                        <h2 class="mt-1 mb-3">JACKY | Co-Founder</h2>
+                        <h3 class="mt-1 mb-3">JACKY | Co-Founder</h3>
                         <p>首席易学专家</p>
                         <p>300年师承的独家易学密术</p>
                         <p>近30年易学苦心研究成果</p>
@@ -243,7 +243,7 @@ onMounted(() => {
                     </div>
                     <div class="teams">
                         <img src="../../assets/images/banner10/pic-03.webp" alt="">
-                        <h2 class="mt-1 mb-3">Shan he Sixuan  | CMO</h2>
+                        <h3 class="mt-1 mb-3">Shan he Sixuan  | CMO</h3>
                         <p>首席易学专家</p>
                         <p>300年师承的独家易学密术</p>
                         <p>近30年易学苦心研究成果</p>
@@ -251,7 +251,7 @@ onMounted(() => {
                     </div>
                     <div class="teams">
                         <img src="../../assets/images/banner10/pic-04.webp" alt="">
-                        <h2 class="mt-1 mb-3">Peter | Al Engineer</h2>
+                        <h3 class="mt-1 mb-3">Peter | Al Engineer</h3>
                         <p>首席易学专家</p>
                         <p>300年师承的独家易学密术</p>
                         <p>近30年易学苦心研究成果</p>
@@ -259,7 +259,7 @@ onMounted(() => {
                     </div>
                     <div class="teams">
                         <img src="../../assets/images/banner10/pic-05.webp" alt="">
-                        <h2 class="mt-1 mb-3">市场营销｜JSW</h2>
+                        <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
                         <p>首席易学专家</p>
                         <p>300年师承的独家易学密术</p>
                         <p>近30年易学苦心研究成果</p>
@@ -275,6 +275,9 @@ onMounted(() => {
 :root {
     --text-color: white;
     --header-height: 80px
+}
+h1, h2 {
+    margin: 0;
 }
 main {
     color: white;
@@ -811,7 +814,7 @@ main {
                 display: block;
                 width: 100%;
             }
-            h2 {
+            h3 {
                 font-size: 18px;
                 text-transform: uppercase;
                 color: white;
