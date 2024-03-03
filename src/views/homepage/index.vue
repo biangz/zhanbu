@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="select-none">
+    <div>
         <header class="header flex items-center gap-x-3">
             <a href="/homepage"><img class="logo" src="../../assets/images/logo.svg" alt=""></a>
             <nav class="flex items-center ml-auto gap-x-3">
@@ -29,246 +29,249 @@ onMounted(() => {
             <a href="/"><a-button type="outline" shape="round">Luanch APP</a-button></a>
         </header>
 
-        <!-- banner 01 -->
-        <section class="banner-01 relative" >
-            <img class="circle" data-aos="fade-up" src="../../assets/images/banner01/bg-cirlce.webp" alt="">
-            <div class="inner relative z-[10]" data-aos="fade-up">
-                <div class="title" data-aos="fade-up" data-aos-delay="100">元 · 道</div>
-                <div class="percent flex items-center" data-aos="fade-up" data-aos-delay="150">
-                    <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-left.png" alt="">
-                    <div class="relative number">95 <span class="sign">%</span></div>
-                    <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-right.png" alt="">
-                </div>
-                <div class="sub" data-aos="fade-up" data-aos-delay="200">预测精准度</div>
-                <p class="descript pt-4 pb-[0.8rem]" data-aos="fade-up" data-aos-delay="250">“元”在古老而神秘的东方文字中是由“人”与“天”组合而成，东方文明中“天”即是宇宙万物。“元”描绘着人与宇宙的最初状态，也代表着人与命运的因果关系。</p>
-                <p class="descript" data-aos="fade-up" data-aos-delay="300">“道”是万物的本初，是宇宙的第一推动，万事万物效法“道”而生，所以“道”是唯一的永恒不变的真理，是万事万物的内在客观规律。</p>
-            </div>
-        </section>
-
-        <!-- banner 02 -->
-        <section class="banner-02 relative">
-            <div class="inner w-full md:w-[29.68rem]">
-                <div class="line w-full" data-aos="fade-up">
-                    <div class="title text-[1rem] md:text-[1.8rem]" data-aos="fade-up" data-aos-delay="100">未来之前·乾坤之间</div>
-                    <p class="gradient pt-3 pb-2 px-4 text-[0.7rem] md:text-[1rem]" data-aos="fade-up" data-aos-delay="150">一款基于人工智能&东方易经神秘玄学的精准预测应用</p>
-                    <p class="des" data-aos="fade-up" data-aos-delay="200">让古老而神秘的东方术数与现代科技碰撞出新的财富火花</p>
-                    <img class="dot" src="../../assets/images/banner02/02-dot.png" alt="">
-                </div>
-                <div class="btm mt-[5rem]">
-                    <p>你想知道未来的命运吗？</p>
-                    <div class="mt-3">
-                        <div class="icon i-solar-alt-arrow-down-outline"></div>
-                        <div class="icon i-solar-alt-arrow-down-outline"></div>
-                        <div class="icon i-solar-alt-arrow-down-outline"></div>
+        <main class="select-none">
+    
+            <!-- banner 01 -->
+            <section class="banner-01 relative" >
+                <img class="circle" data-aos="fade-up" src="../../assets/images/banner01/bg-cirlce.webp" alt="">
+                <div class="inner relative z-[10]" data-aos="fade-up">
+                    <div class="title" data-aos="fade-up" data-aos-delay="100">元 · 道</div>
+                    <div class="percent flex items-center" data-aos="fade-up" data-aos-delay="150">
+                        <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-left.png" alt="">
+                        <div class="relative number">95 <span class="sign">%</span></div>
+                        <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-right.png" alt="">
                     </div>
+                    <div class="sub" data-aos="fade-up" data-aos-delay="200">预测精准度</div>
+                    <p class="descript pt-4 pb-[0.8rem]" data-aos="fade-up" data-aos-delay="250">“元”在古老而神秘的东方文字中是由“人”与“天”组合而成，东方文明中“天”即是宇宙万物。“元”描绘着人与宇宙的最初状态，也代表着人与命运的因果关系。</p>
+                    <p class="descript" data-aos="fade-up" data-aos-delay="300">“道”是万物的本初，是宇宙的第一推动，万事万物效法“道”而生，所以“道”是唯一的永恒不变的真理，是万事万物的内在客观规律。</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- banner 03 -->
-        <section class="banner-03 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">运算逻辑 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <img class="w-full md:w-[24rem]" data-aos="fade-up" data-aos-delay="100" src="../../assets/images/banner03/pic-process.webp" alt="">
-                <img class="right block mx-auto md:absolute md:top-[29%] md:right-[-2rem]" data-aos="fade-up" data-aos-delay="200" src="../../assets/images/banner03/pic-result.webp" alt="">
-            </div>
-        </section>
-
-        <!-- banner 04 -->
-        <section class="banner-04 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">玄学融合现代科技 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="md:flex items-center justify-between">
-                    <section>
-                        <p class="little-title py-4 mt-4" data-aos="fade-up" data-aos-delay="50">只有最顶尖的术数专家与最一流的AI工程师才能完成</p>
-                        <div class="linear-box md:w-[10rem]" data-aos="fade-up" data-aos-delay="100">
-                            <p class="title">东方玄学</p>
-                            <p class="sub">Shan he LEE</p>
-                            <p class="des">Shan he LEE 首席易学专家、300年师承的独家易学密术、近30年易学苦心研究成果、享誉海外的预测实践案例。</p>
-                        </div>
-                        <img class="w-[4px] block mx-auto my-1" data-aos="fade-up" data-aos-delay="150" src="../../assets/images/banner04/04-line.png" alt="">
-                        <div class="linear-box md:w-[10rem]" data-aos="fade-up" data-aos-delay="200">
-                            <p class="title">现代科技</p>
-                            <p class="sub">JACKY | Co-Founder</p>
-                            <p class="des">金融科技创业者 #Geek 工程师 #Blockchain 开发者 Jacky 是一位专注的 Web3 探索者。他是 SWFT Pro 和 Meta Path 的架构师，拥有在区块链技术开发方面的复杂经验。</p>
-                        </div>
-                    </section>
-                    <section>
-                        <img data-aos="fade-up" data-aos-delay="100" class="w-[14rem] mx-auto block md:-mr-12" src="../../assets/images/banner04/pic-luopan.png" alt="">
-                    </section>
-                </div>
-            </div>
-        </section>
-
-        <!-- banner 05 -->
-        <section class="banner-05 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem]">
-                <h1 class="text-center" data-aos="fade-up">来自东方</h1>
-                <p class="text-center text-[1.2rem]" data-aos="fade-up"><span class="j px-1">精准度</span>高达<span class="text-[#FFFF00] px-1">95%</span>的神奇预测软件</p>
-                <p class="des01" data-aos="fade-up" data-aos-delay="50"><img src="../../assets/images/banner04/04-line.png" alt=""><span>只有知道未来的人</span></p>
-                <p class="des02" data-aos="fade-up" data-aos-delay="50"><span class="ml-auto">才能更好的掌控未来...</span></p>
-                <div class="flex items-center justify-between mt-[3rem]">
-                    <div class="specail w-[3.4rem] md:w-[3.86rem]" data-aos="fade-up" :data-aos-delay="50*index" v-for="item,index in specailList" :key="index">
-                        <h1>{{ item.title }}</h1>
-                        <div class="flex items-center justify-center mt-[0.48rem] md:gap-x-2">
-                            <p class="vertical-text">{{ item.des01 }}</p>
-                            <p class="vertical-text">{{ item.des02 }}</p>
+            </section>
+    
+            <!-- banner 02 -->
+            <section class="banner-02 relative">
+                <div class="inner w-full md:w-[29.68rem]">
+                    <div class="line w-full">
+                        <div class="title text-[1rem] md:text-[1.8rem]">未来之前·乾坤之间</div>
+                        <p class="gradient pt-3 pb-2 px-4 text-[0.7rem] md:text-[1rem]">一款基于人工智能&东方易经神秘玄学的精准预测应用</p>
+                        <p class="des">让古老而神秘的东方术数与现代科技碰撞出新的财富火花</p>
+                        <img class="dot" src="../../assets/images/banner02/02-dot.png" alt="">
+                    </div>
+                    <div class="btm mt-[5rem]">
+                        <p>你想知道未来的命运吗？</p>
+                        <div class="mt-3">
+                            <div class="icon i-solar-alt-arrow-down-outline"></div>
+                            <div class="icon i-solar-alt-arrow-down-outline"></div>
+                            <div class="icon i-solar-alt-arrow-down-outline"></div>
                         </div>
                     </div>
                 </div>
-                <p class="last-des">元道人工智能预测系统可以精准预测每个人日常生活中关于未来的一切问题，并给出建设性意见，帮助每一人更有效的掌握未来，精准度高达95%</p>
-            </div>
-        </section>
-
-        <!-- banner 06 -->
-        <section class="banner-06 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">元道-时空罗盘模型 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="md:flex justify-between items-center mt-8">
-                    <img class="w-[14rem] block mx-auto md:mx-0" data-aos="fade-up" src="../../assets/images/banner06/pic-lp.webp" alt="">
-                    <div class="r mx-auto md:mx-0" data-aos="fade-up">
-                        <p class="text-[0.48rem]">元道人工智能预测系统的时空罗盘模型</p>
-                        <p class="text-[0.32rem] leading-[2.6] mt-2">神秘东方文化讲究天、地、人、合，人与天地之间的关系，人所在时空关系与未来之间的关系。元道匹配当事人所在的时空关系，通过人工智能运用东方易经中的术数要领，通过人在时空罗盘模型中的状态，全面评估这个人在未来的动态变化。</p>
-                        <img class="line" src="../../assets/images/banner06/06-line.webp" alt="">
-                    </div>
+            </section>
+    
+            <!-- banner 03 -->
+            <section class="banner-03 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">运算逻辑 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <img class="w-full md:w-[24rem]" src="../../assets/images/banner03/pic-process.webp" alt="">
+                    <img class="right block mx-auto md:absolute md:top-[29%] md:right-[-2rem]" src="../../assets/images/banner03/pic-result.webp" alt="">
                 </div>
-                <div class="title w-full relative mt-12" data-aos="fade-up">元道-千年数据库 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="md:flex justify-between items-center mt-8" data-aos="fade-up">
-                    <div class="l mx-auto md:mx-0" data-aos="fade-up">
-                        <p class="text-[0.48rem]">元道的AI学习</p>
-                        <p class="text-[0.32rem] leading-[2.6] mt-2">元道AI系统阅读学习了《连山》、《归藏》、《周易》、《麻衣神相》、《太弦经》、《周易参同契》、《黄帝宅经》、《葬经》、《太乙金镜式经》、《六仁神定经》、《遁甲符应经》、《柳庄相法》等上千本千年古籍以及25万个预测实践案例数据的收集，充分掌握了古老东方神秘预测的要领，预测准确率高达95%</p>
-                    </div>
-                    <img class="w-[14rem] block mx-auto md:mx-0 mt-12 md:mt-0" data-aos="fade-up" src="../../assets/images/banner06/pic-ku.webp" alt="">
-                </div>
-            </div>
-        </section>
-
-        <!-- banner 07 -->
-        <section class="banner-07 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">元道-元道编译系统 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="md:flex justify-between items-center" data-aos="fade-up">
-                    <div class="r mx-auto md:mx-0">
-                        <p class="text-[0.48rem]">东方天干地支</p>
-                        <p class="text-[0.32rem] leading-[2.6] mt-2">中国的天干地支，即十天干：甲、乙、丙、丁、戊、己、庚、辛、壬、癸；十二地支包括子、丑、寅、卯、辰、巳、午、未、申、酉、戌、亥 作为一种代表着天地自然的数字符号，以五行生克、阴阳、八卦关系进行关联，形成一种东方玄学预测的编译系统。在东方的玄学预测体系中，这些符号的组合，正是古代破译未来的计算代码，承载着特定的信息和属性，让每个人都成为未来世界的NPC。</p>
-                        <img class="line" src="../../assets/images/banner06/06-line.webp" alt="">
-                    </div>
-                    <img class="w-[19rem] block mx-auto md:-mr-8" data-aos="fade-up" src="../../assets/images/banner07/pic-07.webp" alt="">
-                </div>
-            </div>
-        </section>
-
-        <!-- banner 08 -->
-        <section class="banner-08 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">元道财富宝 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="flex items-center mt-8">
-                    <div class="panel w-full md:w-[22rem] px-5 py-4 md:pr-[5rem]">
-                        <h2 class="linear text-[0.64rem]">股市涨跌趋势预测</h2>
-                        <p class="pr-[3rem] mt-2">元道更专注于精准的比特币、及股市涨跌趋势预测！用户仅需输入比特币或股票开盘价，便可获知丰富的涨跌趋势建议！元道通过25万个的预测案例的分析，精准度高达 <span>95%</span>。</p>
-                        <h1 class="linear text-[0.8rem] pt-4">量化投资</h1>
-                        <div class="skew flex flex-wrap items-center gap-3 mt-3">
-                            <div class="skew-i">价值评估</div>
-                            <div class="skew-i">投资建设</div>
-                            <div class="skew-i">短线涨跌</div>
-                            <div class="skew-i">风险评估</div>
-                            <div class="skew-i">长线涨跌</div>
-                            <div class="skew-i">趋势分析</div>
-                        </div>
-                    </div>
-                    <div class="l -ml-[4rem] hidden md:block">
-                        <img class="block w-full" src="../../assets/images/banner08/pic-c.webp" alt="">
-                        <div class="little-panel">
-                            <div class="flex items-center">
-                                <img class="w-2" src="../../assets/images/dollar.svg" alt="">
-                                <span class="#FFDF8B">量化投资</span>
+            </section>
+    
+            <!-- banner 04 -->
+            <section class="banner-04 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">玄学融合现代科技 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="md:flex items-center justify-between">
+                        <section>
+                            <p class="little-title py-4 mt-4" >只有最顶尖的术数专家与最一流的AI工程师才能完成</p>
+                            <div class="linear-box md:w-[10rem]" >
+                                <p class="title">东方玄学</p>
+                                <p class="sub">Shan he LEE</p>
+                                <p class="des">Shan he LEE 首席易学专家、300年师承的独家易学密术、近30年易学苦心研究成果、享誉海外的预测实践案例。</p>
                             </div>
-                            <p class="mt-1">让你的财富，由你掌控</p>
-                        </div>
+                            <img class="w-[4px] block mx-auto my-1"  src="../../assets/images/banner04/04-line.png" alt="">
+                            <div class="linear-box md:w-[10rem]" >
+                                <p class="title">现代科技</p>
+                                <p class="sub">JACKY | Co-Founder</p>
+                                <p class="des">金融科技创业者 #Geek 工程师 #Blockchain 开发者 Jacky 是一位专注的 Web3 探索者。他是 SWFT Pro 和 Meta Path 的架构师，拥有在区块链技术开发方面的复杂经验。</p>
+                            </div>
+                        </section>
+                        <section>
+                            <img  class="w-[14rem] mx-auto block md:-mr-12" src="../../assets/images/banner04/pic-luopan.png" alt="">
+                        </section>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- banner 09 -->
-        <section class="banner-09 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">元道-未来规划 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <p class="linear inline-block mt-6" data-aos="fade-up" data-aos-delay="50">全球最大最专业的社交预测平台</p>
-                <div class="md:flex gap-[0.64rem] mt-4">
-                    <div class="left">
-                        <div class="flex gap-[0.64rem]" data-aos="fade-up" data-aos-delay="100">
-                            <div class="plate plate01">
-                                <h1>专业化</h1>
-                                <p>专业的常规预测、股市、比赛、币价趋势预测量化投资。</p>
-                            </div>
-                            <div class="plate plate02">
-                                <h1>平台化</h1>
-                                <p>全球最大的心理预测社交平台。</p>
+            </section>
+    
+            <!-- banner 05 -->
+            <section class="banner-05 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem]">
+                    <h1 class="text-center">来自东方</h1>
+                    <p class="text-center text-[1.2rem]"><span class="j px-1">精准度</span>高达<span class="text-[#FFFF00] px-1">95%</span>的神奇预测软件</p>
+                    <p class="des01"><img src="../../assets/images/banner04/04-line.png" alt=""><span>只有知道未来的人</span></p>
+                    <p class="des02"><span class="ml-auto">才能更好的掌控未来...</span></p>
+                    <div class="flex items-center justify-between mt-[3rem]">
+                        <div class="specail w-[3.4rem] md:w-[3.86rem]" v-for="item,index in specailList" :key="index">
+                            <h1>{{ item.title }}</h1>
+                            <div class="flex items-center justify-center mt-[0.48rem] md:gap-x-2">
+                                <p class="vertical-text">{{ item.des01 }}</p>
+                                <p class="vertical-text">{{ item.des02 }}</p>
                             </div>
                         </div>
-                        <div class="plate plate04 mt-[0.64rem]" data-aos="fade-up" data-aos-delay="150">
-                            <h1>社交化</h1>
-                            <p>为全球术士与求测者的沟通交流平台。</p>
+                    </div>
+                    <p class="last-des">元道人工智能预测系统可以精准预测每个人日常生活中关于未来的一切问题，并给出建设性意见，帮助每一人更有效的掌握未来，精准度高达95%</p>
+                </div>
+            </section>
+    
+            <!-- banner 06 -->
+            <section class="banner-06 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">元道-时空罗盘模型 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="md:flex justify-between items-center mt-8">
+                        <img class="w-[14rem] block mx-auto md:mx-0" src="../../assets/images/banner06/pic-lp.webp" alt="">
+                        <div class="r mx-auto md:mx-0">
+                            <p class="text-[0.48rem]">元道人工智能预测系统的时空罗盘模型</p>
+                            <p class="text-[0.32rem] leading-[2.6] mt-2">神秘东方文化讲究天、地、人、合，人与天地之间的关系，人所在时空关系与未来之间的关系。元道匹配当事人所在的时空关系，通过人工智能运用东方易经中的术数要领，通过人在时空罗盘模型中的状态，全面评估这个人在未来的动态变化。</p>
+                            <img class="line" src="../../assets/images/banner06/06-line.webp" alt="">
                         </div>
                     </div>
-                    <div class="right plate plate03 mt-[0.64rem] md:mt-0 md:h-[16.35rem]" data-aos="fade-up" data-aos-delay="150">
-                        <h1>IP化</h1>
-                        <p>平台角色延伸品，风水物等手办销售。</p>
+                    <div class="title w-full relative mt-12">元道-千年数据库 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="md:flex justify-between items-center mt-8">
+                        <div class="l mx-auto md:mx-0">
+                            <p class="text-[0.48rem]">元道的AI学习</p>
+                            <p class="text-[0.32rem] leading-[2.6] mt-2">元道AI系统阅读学习了《连山》、《归藏》、《周易》、《麻衣神相》、《太弦经》、《周易参同契》、《黄帝宅经》、《葬经》、《太乙金镜式经》、《六仁神定经》、《遁甲符应经》、《柳庄相法》等上千本千年古籍以及25万个预测实践案例数据的收集，充分掌握了古老东方神秘预测的要领，预测准确率高达95%</p>
+                        </div>
+                        <img class="w-[14rem] block mx-auto md:mx-0 mt-12 md:mt-0" src="../../assets/images/banner06/pic-ku.webp" alt="">
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- banner 10 -->
-        <section class="banner-10 relative">
-            <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
-                <div class="title w-full relative" data-aos="fade-up">元道团队 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                <div class="grid grid-cols-2 md:grid-cols-5 mt-12 gap-2">
-                    <div class="teams">
-                        <img src="../../assets/images/banner10/pic-01.webp" alt="">
-                        <h3 class="mt-1 mb-3">Shan he LEE</h3>
-                        <p>首席易学专家</p>
-                        <p>300年师承的独家易学密术</p>
-                        <p>近30年易学苦心研究成果</p>
-                        <p>享誉海外的预测实践案例</p>
-                    </div>
-                    <div class="teams">
-                        <img src="../../assets/images/banner10/pic-02.webp" alt="">
-                        <h3 class="mt-1 mb-3">JACKY | Co-Founder</h3>
-                        <p>首席易学专家</p>
-                        <p>300年师承的独家易学密术</p>
-                        <p>近30年易学苦心研究成果</p>
-                        <p>享誉海外的预测实践案例</p>
-                    </div>
-                    <div class="teams">
-                        <img src="../../assets/images/banner10/pic-03.webp" alt="">
-                        <h3 class="mt-1 mb-3">Shan he Sixuan  | CMO</h3>
-                        <p>首席易学专家</p>
-                        <p>300年师承的独家易学密术</p>
-                        <p>近30年易学苦心研究成果</p>
-                        <p>享誉海外的预测实践案例</p>
-                    </div>
-                    <div class="teams">
-                        <img src="../../assets/images/banner10/pic-04.webp" alt="">
-                        <h3 class="mt-1 mb-3">Peter | Al Engineer</h3>
-                        <p>首席易学专家</p>
-                        <p>300年师承的独家易学密术</p>
-                        <p>近30年易学苦心研究成果</p>
-                        <p>享誉海外的预测实践案例</p>
-                    </div>
-                    <div class="teams">
-                        <img src="../../assets/images/banner10/pic-05.webp" alt="">
-                        <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
-                        <p>首席易学专家</p>
-                        <p>300年师承的独家易学密术</p>
-                        <p>近30年易学苦心研究成果</p>
-                        <p>享誉海外的预测实践案例</p>
+            </section>
+    
+            <!-- banner 07 -->
+            <section class="banner-07 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">元道-元道编译系统 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="md:flex justify-between items-center">
+                        <div class="r mx-auto md:mx-0">
+                            <p class="text-[0.48rem]">东方天干地支</p>
+                            <p class="text-[0.32rem] leading-[2.6] mt-2">中国的天干地支，即十天干：甲、乙、丙、丁、戊、己、庚、辛、壬、癸；十二地支包括子、丑、寅、卯、辰、巳、午、未、申、酉、戌、亥 作为一种代表着天地自然的数字符号，以五行生克、阴阳、八卦关系进行关联，形成一种东方玄学预测的编译系统。在东方的玄学预测体系中，这些符号的组合，正是古代破译未来的计算代码，承载着特定的信息和属性，让每个人都成为未来世界的NPC。</p>
+                            <img class="line" src="../../assets/images/banner06/06-line.webp" alt="">
+                        </div>
+                        <img class="w-[19rem] block mx-auto md:-mr-8" src="../../assets/images/banner07/pic-07.webp" alt="">
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+    
+            <!-- banner 08 -->
+            <section class="banner-08 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">元道财富宝 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="flex items-center mt-8">
+                        <div class="panel w-full md:w-[22rem] px-5 py-4 md:pr-[5rem]">
+                            <h2 class="linear text-[0.64rem]">股市涨跌趋势预测</h2>
+                            <p class="pr-[3rem] mt-2">元道更专注于精准的比特币、及股市涨跌趋势预测！用户仅需输入比特币或股票开盘价，便可获知丰富的涨跌趋势建议！元道通过25万个的预测案例的分析，精准度高达 <span>95%</span>。</p>
+                            <h1 class="linear text-[0.8rem] pt-4">量化投资</h1>
+                            <div class="skew flex flex-wrap items-center gap-3 mt-3">
+                                <div class="skew-i">价值评估</div>
+                                <div class="skew-i">投资建设</div>
+                                <div class="skew-i">短线涨跌</div>
+                                <div class="skew-i">风险评估</div>
+                                <div class="skew-i">长线涨跌</div>
+                                <div class="skew-i">趋势分析</div>
+                            </div>
+                        </div>
+                        <div class="l -ml-[4rem] hidden md:block">
+                            <img class="block w-full" src="../../assets/images/banner08/pic-c.webp" alt="">
+                            <div class="little-panel">
+                                <div class="flex items-center">
+                                    <img class="w-2" src="../../assets/images/dollar.svg" alt="">
+                                    <span class="#FFDF8B">量化投资</span>
+                                </div>
+                                <p class="mt-1">让你的财富，由你掌控</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- banner 09 -->
+            <section class="banner-09 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">元道-未来规划 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <p class="linear inline-block mt-6">全球最大最专业的社交预测平台</p>
+                    <div class="md:flex gap-[0.64rem] mt-4">
+                        <div class="left">
+                            <div class="flex gap-[0.64rem]">
+                                <div class="plate plate01">
+                                    <h1>专业化</h1>
+                                    <p>专业的常规预测、股市、比赛、币价趋势预测量化投资。</p>
+                                </div>
+                                <div class="plate plate02">
+                                    <h1>平台化</h1>
+                                    <p>全球最大的心理预测社交平台。</p>
+                                </div>
+                            </div>
+                            <div class="plate plate04 mt-[0.64rem]">
+                                <h1>社交化</h1>
+                                <p>为全球术士与求测者的沟通交流平台。</p>
+                            </div>
+                        </div>
+                        <div class="right plate plate03 mt-[0.64rem] md:mt-0 md:h-[16.35rem]">
+                            <h1>IP化</h1>
+                            <p>平台角色延伸品，风水物等手办销售。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- banner 10 -->
+            <section class="banner-10 relative">
+                <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
+                    <div class="title w-full relative">元道团队 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
+                    <div class="grid grid-cols-2 md:grid-cols-5 mt-12 gap-2">
+                        <div class="teams">
+                            <img src="../../assets/images/banner10/pic-01.webp" alt="">
+                            <h3 class="mt-1 mb-3">Shan he LEE</h3>
+                            <p>首席易学专家</p>
+                            <p>300年师承的独家易学密术</p>
+                            <p>近30年易学苦心研究成果</p>
+                            <p>享誉海外的预测实践案例</p>
+                        </div>
+                        <div class="teams">
+                            <img src="../../assets/images/banner10/pic-02.webp" alt="">
+                            <h3 class="mt-1 mb-3">JACKY | Co-Founder</h3>
+                            <p>首席易学专家</p>
+                            <p>300年师承的独家易学密术</p>
+                            <p>近30年易学苦心研究成果</p>
+                            <p>享誉海外的预测实践案例</p>
+                        </div>
+                        <div class="teams">
+                            <img src="../../assets/images/banner10/pic-03.webp" alt="">
+                            <h3 class="mt-1 mb-3">Shan he Sixuan  | CMO</h3>
+                            <p>首席易学专家</p>
+                            <p>300年师承的独家易学密术</p>
+                            <p>近30年易学苦心研究成果</p>
+                            <p>享誉海外的预测实践案例</p>
+                        </div>
+                        <div class="teams">
+                            <img src="../../assets/images/banner10/pic-04.webp" alt="">
+                            <h3 class="mt-1 mb-3">Peter | Al Engineer</h3>
+                            <p>首席易学专家</p>
+                            <p>300年师承的独家易学密术</p>
+                            <p>近30年易学苦心研究成果</p>
+                            <p>享誉海外的预测实践案例</p>
+                        </div>
+                        <div class="teams">
+                            <img src="../../assets/images/banner10/pic-05.webp" alt="">
+                            <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
+                            <p>首席易学专家</p>
+                            <p>300年师承的独家易学密术</p>
+                            <p>近30年易学苦心研究成果</p>
+                            <p>享誉海外的预测实践案例</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 </template>
 
 <style lang="less" scoped>
@@ -279,31 +282,38 @@ onMounted(() => {
 h1, h2 {
     margin: 0;
 }
+.header {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 22px;
+    z-index: 99;
+    padding: 0 80px;
+    background: rgba(0,0,0,.01);
+    backdrop-filter: blur(20px);
+    .logo {
+        width: 166px;
+    }
+    nav {
+        text-transform: uppercase;
+    }
+    .arco-btn {
+        color: white;
+        border-color: white;
+    }
+}
 main {
     color: white;
+    height: 100vh;
+    overflow: scroll;
+    scroll-snap-type: y mandatory;
 
-    .header {
-        height: var(--header-height);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        font-size: 22px;
-        z-index: 99;
-        padding: 0 80px;
-        background: rgba(0,0,0,.01);
-        backdrop-filter: blur(20px);
-        .logo {
-            width: 166px;
-        }
-        nav {
-            text-transform: uppercase;
-        }
-        .arco-btn {
-            color: white;
-            border-color: white;
-        }
+    > section {
+        scroll-snap-align: start;
     }
+
     .banner-01 {
         height: 100vh;
         position: relative;
