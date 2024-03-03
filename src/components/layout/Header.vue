@@ -1,6 +1,6 @@
 <template>
     <header class="stiky top-0 w-full flex items-center md:px-3">
-        <Logo class="logo block w-7" @click="$router.push('/')" />
+        <Logo class="logo block w-13" @click="$router.push('/homepage')" />
         <div class="flex items-center gap-x-4 ml-auto">
             <a-dropdown trigger="hover" v-if="authStore.user">
                 <button class="login-button">{{ authStore.user.name }}</button>

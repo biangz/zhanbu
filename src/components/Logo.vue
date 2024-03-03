@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-const logo = new URL('@/assets/logo.svg', import.meta.url).href
+const logo = new URL('@/assets/images/logo.svg', import.meta.url).href
 </script>
 
 <style scoped>

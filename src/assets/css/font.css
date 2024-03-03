@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'YouShe';
+    src: url('../fonts/youshe.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DIN-Black';
+    src: url('../fonts/DIN-BlackAlternate.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'AlimamaShuHeiTi-Bold';
+    src: url('../fonts/AlimamaShuHeiTi-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PangMenZhengDao';
+    src: url('../fonts/PangMenZhengDaoCuShuTi.ttf') format('truetype');
+}

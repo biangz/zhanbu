@@ -7,6 +7,16 @@ import User from './modules/user'
 let routes = [
   
   {
+    path: '/homepage',
+    component: () => import("@/views/homepage/index.vue"),
+    name: 'Homepage',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
     path: "/",
     component: () => import("@/views/home/home.vue"),
     children: [
