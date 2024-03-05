@@ -38,7 +38,7 @@ onMounted(() => {
                 <div class="cursor-pointer" @click="handleScrollTeam('team')">Team</div>
                 <div class="cursor-pointer">LitePaper</div>
             </nav>
-            <a href="/"><a-button shape="round">Launch APP</a-button></a>
+            <a href="/home"><a-button shape="round">Launch APP</a-button></a>
         </header>
 
         <main class="select-none">
