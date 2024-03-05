@@ -10,6 +10,16 @@ const specailList = ref([
     { title: '成败', des01: '谋事在人', des02: '成事在天' },
     { title: '健康', des01: '养元益体', des02: '天地人和' },
 ])
+
+const handleScrollTeam = (location) => {
+    let el = document.getElementById(location)
+    el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+}
+
+const thirdLink = (link) => {
+    window.open(link)
+}
+
 onMounted(() => {
     AOS.init({
         once: true
@@ -19,14 +29,16 @@ onMounted(() => {
 
 <template>
     <div>
-        <header class="header flex items-center gap-x-3">
+        <header class="header flex items-center gap-x-6">
             <a href="/homepage"><img class="logo" src="../../assets/images/logo.svg" alt=""></a>
-            <nav class="flex items-center ml-auto gap-x-3">
-                <!-- <div>details</div>
-                <div>features</div>
-                <div>features</div> -->
+            <nav class="flex items-center ml-auto gap-x-3 text-white">
+                <!-- Home Twitter Team LitePaper -->
+                <div class="cursor-pointer">Home</div>
+                <div class="cursor-pointer" @click="thirdLink('https://twitter.com/yuantaoxyz')">Twitter</div>
+                <div class="cursor-pointer" @click="handleScrollTeam('team')">Team</div>
+                <div class="cursor-pointer">LitePaper</div>
             </nav>
-            <a href="/"><a-button type="outline" shape="round">Luanch APP</a-button></a>
+            <a href="/"><a-button shape="round">Launch APP</a-button></a>
         </header>
 
         <main class="select-none">
@@ -223,7 +235,7 @@ onMounted(() => {
             </section>
     
             <!-- banner 10 -->
-            <section class="banner-10 relative">
+            <section class="banner-10 relative" id="team">
                 <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
                     <div class="title w-full relative">元道团队 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
                     <div class="grid grid-cols-2 md:grid-cols-5 mt-12 gap-2">
@@ -236,37 +248,36 @@ onMounted(() => {
                             <p>享誉海外的预测实践案例</p>
                         </div>
                         <div class="teams">
+                            <img src="../../assets/images/banner10/pic-05.webp" alt="">
+                            <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
+                            <p>15年品牌营销经验，日本电通集团进行数字营销策划，后创建中视金桥数字营销平台iBCP，中国最早从事网络营销，数字营销的品牌人
+曾服务于阿里巴巴、中粮我买网、华为集团、联想中国、现代汽车中国等品牌，对社交媒体运营，品牌年轻化需求有着独到见解。</p>
+                        </div>
+                        <div class="teams">
                             <img src="../../assets/images/banner10/pic-02.webp" alt="">
                             <h3 class="mt-1 mb-3">JACKY | Co-Founder</h3>
-                            <p>首席易学专家</p>
-                            <p>300年师承的独家易学密术</p>
-                            <p>近30年易学苦心研究成果</p>
-                            <p>享誉海外的预测实践案例</p>
+                            <p>Entrepreneur in Fintech</p>
+                            <p>#Geek Engineert</p>
+                            <p>#Blockchain Develeoer</p>
+                            <p>Jacky is a devoted Web3 Explorer. He is the architect of SWFT Pro & Meta Pathwith sophisticated experience in blockchaintech development</p>
                         </div>
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-03.webp" alt="">
-                            <h3 class="mt-1 mb-3">Shan he Sixuan  | CMO</h3>
-                            <p>首席易学专家</p>
-                            <p>300年师承的独家易学密术</p>
-                            <p>近30年易学苦心研究成果</p>
-                            <p>享誉海外的预测实践案例</p>
+                            <h3 class="mt-1 mb-3">Iris  | CMO</h3>
+                            <p>Brand & Marketing</p>
+                            <p>#Market Disruptor</p>
+                            <p>#WWebs Exglorer</p>
+                            <p>Marketing head of Al company,consumerelectronic and fintech, build growth formarket disruptor through breakthroughmarketing campaigns. Loyal fandom users.</p>
                         </div>
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-04.webp" alt="">
-                            <h3 class="mt-1 mb-3">Peter | Al Engineer</h3>
-                            <p>首席易学专家</p>
-                            <p>300年师承的独家易学密术</p>
-                            <p>近30年易学苦心研究成果</p>
-                            <p>享誉海外的预测实践案例</p>
+                            <h3 class="mt-1 mb-3">Ian | Al Engineer</h3>
+                            <p>Algorithm Engineer</p>
+                            <p>#Composer</p>
+                            <p>#Wec3 Exglerer</p>
+                            <p>His research focus is Music InformationRetrieval(MIR) A growing field of research canbe used in music classification& generation etc.</p>
                         </div>
-                        <div class="teams">
-                            <img src="../../assets/images/banner10/pic-05.webp" alt="">
-                            <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
-                            <p>首席易学专家</p>
-                            <p>300年师承的独家易学密术</p>
-                            <p>近30年易学苦心研究成果</p>
-                            <p>享誉海外的预测实践案例</p>
-                        </div>
+                        
                     </div>
                 </div>
             </section>
@@ -298,9 +309,15 @@ h1, h2 {
     }
     nav {
         text-transform: uppercase;
+        > div {
+            transition: all .3s;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
     .arco-btn {
-        color: white;
+        color: black;
         border-color: white;
     }
 }

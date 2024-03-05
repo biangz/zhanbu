@@ -7,7 +7,7 @@ import User from './modules/user'
 let routes = [
   
   {
-    path: '/homepage',
+    path: '/',
     component: () => import("@/views/homepage/index.vue"),
     name: 'Homepage',
     meta: {
@@ -17,7 +17,7 @@ let routes = [
     }
   },
   {
-    path: "/",
+    path: "/home",
     component: () => import("@/views/home/home.vue"),
     children: [
 
@@ -25,9 +25,9 @@ let routes = [
       // ...User,
       
       {
-        path: '/',
+        path: '/home',
         component: () => import("@/views/index.vue"),
-        name: 'Index',
+        name: 'Home',
         meta: {
           loginRequired: false,
           keepAlive: true, // 需要缓存
