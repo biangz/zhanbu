@@ -238,7 +238,7 @@ onMounted(() => {
             <section class="banner-10 relative" id="team">
                 <div class="inner w-full px-2 md:px-0 md:w-[30rem] relative">
                     <div class="title w-full relative">元道团队 <img class="circle" src="../../assets/images/banner03/circle.png" alt=""></div>
-                    <div class="grid grid-cols-2 md:grid-cols-5 mt-12 gap-2">
+                    <div class="grid grid-cols-2 md:grid-cols-4 mt-12 gap-2">
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-01.webp" alt="">
                             <h3 class="mt-1 mb-3">Shan he LEE</h3>
@@ -250,34 +250,24 @@ onMounted(() => {
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-05.webp" alt="">
                             <h3 class="mt-1 mb-3">市场营销｜JSW</h3>
-                            <p>15年品牌营销经验，日本电通集团进行数字营销策划，后创建中视金桥数字营销平台iBCP，中国最早从事网络营销，数字营销的品牌人
-曾服务于阿里巴巴、中粮我买网、华为集团、联想中国、现代汽车中国等品牌，对社交媒体运营，品牌年轻化需求有着独到见解。</p>
+                            <p>15年品牌营销经验</p>
+                            <p>日本电通数字营销专家</p>
+                            <p>对社交媒体运营，品牌年轻化需求有着独到见解</p>
                         </div>
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-02.webp" alt="">
                             <h3 class="mt-1 mb-3">JACKY | Co-Founder</h3>
-                            <p>Entrepreneur in Fintech</p>
-                            <p>#Geek Engineert</p>
-                            <p>#Blockchain Develeoer</p>
-                            <p>Jacky is a devoted Web3 Explorer. He is the architect of SWFT Pro & Meta Pathwith sophisticated experience in blockchaintech development</p>
+                            <p>金融科技领域的企业家</p>
+                            <p>周易与AI智能开发专家</p>
+                            <p>区块链与AI开发者</p>
+                            <p>忠实的Web3与AI探索者</p>
                         </div>
                         <div class="teams">
                             <img src="../../assets/images/banner10/pic-03.webp" alt="">
                             <h3 class="mt-1 mb-3">Iris  | CMO</h3>
-                            <p>Brand & Marketing</p>
-                            <p>#Market Disruptor</p>
-                            <p>#WWebs Exglorer</p>
-                            <p>Marketing head of Al company,consumerelectronic and fintech, build growth formarket disruptor through breakthroughmarketing campaigns. Loyal fandom users.</p>
+                            <p>具有丰富web3社区运营经验</p>
+                            <p>并且凭借其在时尚界的经验，为元道注入现代感，并打造全新元道社区</p>
                         </div>
-                        <div class="teams">
-                            <img src="../../assets/images/banner10/pic-04.webp" alt="">
-                            <h3 class="mt-1 mb-3">Ian | Al Engineer</h3>
-                            <p>Algorithm Engineer</p>
-                            <p>#Composer</p>
-                            <p>#Wec3 Exglerer</p>
-                            <p>His research focus is Music InformationRetrieval(MIR) A growing field of research canbe used in music classification& generation etc.</p>
-                        </div>
-                        
                     </div>
                 </div>
             </section>
