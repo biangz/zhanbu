@@ -80,7 +80,7 @@ onMounted(() => {
         flex-wrap: wrap;
         gap: 6px;
         .question-item {
-            background-color: #66F132;
+            background-color: white;
             font-size: 16px;
             color: black;
             padding: 6px 24px;

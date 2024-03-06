@@ -60,7 +60,6 @@ onMounted(() => {
 .chat-item {
     margin: 8px 0;
     font-size: 19px;
-    box-shadow: 0 8px 10px rgba(0,0,0,0.2);
     --radius: 22px;
     overflow: hidden;
     white-space: pre-line;
@@ -83,7 +82,7 @@ onMounted(() => {
     .chat-inner {
         &.mine {
             // background-color: #96AAF3;
-            background-color: #66F132;
+            background-color: white;
             align-self: flex-end;
             color: black;
             border-radius: var(--radius) 0 var(--radius) var(--radius);

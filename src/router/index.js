@@ -56,6 +56,28 @@ let routes = [
       deepth: 0.1 // 定义路由的层级
     }
   },
+
+  {
+    path: '/landing',
+    component: () => import("@/views/Mainland/landing.vue"),
+    name: 'Landing',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
+    path: '/landing/form',
+    component: () => import("@/views/Mainland/form.vue"),
+    name: 'Form',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+
   { path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/' },
 ];
 

@@ -318,7 +318,7 @@ const goBack = () => {
 .turntable-container {
     color: var(--text-color);
     height: 100vh;
-    // background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
+    background: url('../../assets/images/banner10/bg-10.webp') no-repeat center top / cover;
 
     .inner {
         max-width: 1400px;
@@ -334,6 +334,9 @@ const goBack = () => {
             flex-direction: column;
             align-items: center;
             padding: 0 24px;
+            border-image: linear-gradient(27deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.48)) 1 1;
+            background: rgba(0,0,0,.1);
+            backdrop-filter: blur(10px);
     
             .chat-title {
                 border-bottom: 1px solid rgba(150,170,243,0.3);
@@ -385,7 +388,7 @@ const goBack = () => {
             }
     
             .input-main {
-                border: 1px solid #66F132;
+                border: 1px solid white;
                 border-radius: 99px;
                 &.error {
                     border-color: #C14E56;

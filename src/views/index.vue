@@ -1,10 +1,10 @@
 <template>
     <div class="index-container">
         <!-- 首页图片 5s -->
-        <img :class="['image']" src="../assets/images/home-person.png" alt="">
+        <!-- <img :class="['image']" src="../assets/images/home-person.png" alt=""> -->
 
         <!-- 内容 -->
-        <div class="main-container mt-4" :class="[show ? 'show' : '']">
+        <div class="main-container" :class="[show ? 'show' : '']">
             <div class="flex items-center">
                 <a-button class="check-button" @click="handleCheck(item)" v-for="item, index in tabList" :key="index"
                     :type="store.forcastType == item.id ? 'primary' : 'outline'">{{ item.label }}</a-button>
@@ -57,9 +57,9 @@ const handleCheck = (item) => {
 // onMounted
 onMounted(() => {
     store.setAgainQike()
-    setTimeout(() => {
-        show.value = true
-    }, 3000)
+    // setTimeout(() => {
+    //     show.value = true
+    // }, 3000)
 })
 
 
@@ -67,13 +67,14 @@ onMounted(() => {
 
 <style scoped lang="less">
 .index-container {
-    min-height: calc(100vh - var(--header-height));
+    padding-top: 3rem;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    // background: url('../assets/light-logo.svg') no-repeat center center / 1000px, radial-gradient(at 60% 60px, #545454, #282828); 
-    background: black;
+    background: url('../assets/images/banner10/bg-10.webp') no-repeat center bottom / cover;
+    box-sizing: border-box;
 
     .image {
         width: 500px;
@@ -81,20 +82,19 @@ onMounted(() => {
 
     .main-container {
         width: 800px;
-        height: 1100px;
+        height: 800px;
         position: absolute;
-        top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         z-index: 1;
-        background-color: black;
+        // background-color: black;
 
-        clip-path: circle(0);
-        transition: clip-path 2s;
+        // clip-path: circle(0);
+        // transition: clip-path 2s;
 
-        &.show {
-            clip-path: circle(100%);
-        }
+        // &.show {
+        //     clip-path: circle(100%);
+        // }
 
         .check-button {
             border-radius: 0;

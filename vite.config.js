@@ -31,7 +31,7 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         modifyVars: {
-          'arcoblue-6': '#66F132',
+          'arcoblue-6': '#FFFFFF',
           'orange-6': '#66F132',
           // 'color-primary-6': '#13c2c2',
           // 'color-primary-6': `rgb(var(~'@{arco-cssvars-prefix}-green-6'))`
@@ -60,7 +60,7 @@ export default defineConfig({
     proxy: {
       '/localapi': {
         // target: "http://localhost:8088",
-        target: "https://eli-api.fenus.xyz",
+        target: "https://yuantao.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },

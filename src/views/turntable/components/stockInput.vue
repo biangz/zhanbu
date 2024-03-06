@@ -1,6 +1,6 @@
 <template>
     <div class="difen-main">
-        <img class="image" src="../../../assets/images/stock.png" alt="">
+        <h1 class="mt-4 text-white">今日涨跌预测，请输入今日开盘价：</h1>
         <a-input v-model="price" placeholder="" :size="'large'" />
         <AnButton @click="handleSelectNumber" />
     </div>
@@ -28,15 +28,13 @@ onMounted(() => {
 <style scoped lang="less">
 .difen-main {
 
-    .image {
-        width: 800px;
-        display: block;
-        margin: 0 auto;
+    h1 {
+        font-size: 32px;
     }
 
     .arco-input-wrapper {
         background-color: transparent;
-        border: 1px solid gray;
+        border: 1px solid white;
         border-radius: 12px;
         overflow: hidden;
         padding: 24px;

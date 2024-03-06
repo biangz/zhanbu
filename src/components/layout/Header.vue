@@ -84,18 +84,23 @@ const handleSelect = (v) => {
 
 <style scoped lang="less">
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 22px;
+    z-index: 99;
+    padding: 0 80px;
+    background: rgba(0,0,0,.01);
+    backdrop-filter: blur(20px);
     box-sizing: border-box;
     height: var(--header-height);
-    background: black;
-    position: relative;
-    // box-shadow: 0px 0px 82px 0px rgba(150, 170, 243, 0.60);
-    backdrop-filter: blur(14px);
-    object-fit: cover;
 
     .login-button {
+        
         font-size: 24px;
-        color: white;
-        background-color: #66F132;
+        color: black;
+        background-color: white;
         border-radius: 99px;
         border: none;
         padding: 14px 24px;

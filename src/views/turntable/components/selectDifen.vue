@@ -1,18 +1,18 @@
 <template>
     <div class="difen-main">
         <div v-if="!store.userSelectType">
-            <img class="banner" src="../../../assets/images/type.png" alt="">
-            <div class="group-button mt-4">
-                <a-button 
-                    @click="handleCheckType(item)" 
+            <h1 class="mt-4 text-white">你欲求哪一方面的事情，点击选择：</h1>
+            <div class="group-button grid grid-cols-4">
+                <div 
+                    class="type-item mx-auto cursor-pointer hover:opacity-80" 
                     v-for="item, index in typeList" 
-                    :key="index" 
-                    :type="'outline'"
-                >{{ item.name_cn }}</a-button>
+                    :key="index"
+                    @click="handleCheckType(item)"
+                >{{ item.name_cn }}</div>
             </div>
         </div>
         <div v-else>
-            <img class="image" src="../../../assets/images/input.png" alt="">
+            <h1 class="mt-4 text-white">心中默想所求之事，写下数字：</h1>
             <a-input v-model="number" placeholder="" :size="'large'" />
     
             <AnButton @click="handleSelectNumber" />
@@ -61,17 +61,24 @@ onMounted(() => {
 .difen-main {
     width: 800px;
     margin: 0 auto;
-    .banner {
-        display: block;
-        width: 100%;
+    
+    h1 {
+        font-size: 32px;
     }
 
     .group-button {
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
         gap: 10px;
-        .arco-btn {
-            min-width: 180px;
+
+        .type-item {
+            font-size: 32px;
+            font-family: 'PangMenZhengDao';
+            color: #FFF0BA;
+            text-align: center;
+            width: 178px;
+            padding: 38px 0;
+            background: url('../../../assets/images/banner05/t-bg-s.webp') no-repeat center / 100%;
         }
     }
 
@@ -83,7 +90,7 @@ onMounted(() => {
 
     .arco-input-wrapper {
         background-color: transparent;
-        border: 1px solid gray;
+        border: 1px solid white;
         border-radius: 12px;
         overflow: hidden;
         padding: 24px;
