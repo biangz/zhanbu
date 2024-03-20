@@ -8,17 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('@arco-design/web-vue')['Button']
-    ACheckbox: typeof import('@arco-design/web-vue')['Checkbox']
     ADoption: typeof import('@arco-design/web-vue')['Doption']
     ADropdown: typeof import('@arco-design/web-vue')['Dropdown']
-    AForm: typeof import('@arco-design/web-vue')['Form']
-    AFormItem: typeof import('@arco-design/web-vue')['FormItem']
     AInput: typeof import('@arco-design/web-vue')['Input']
     AnButton: typeof import('./src/components/AnButton.vue')['default']
     AppLoading: typeof import('./src/components/layout/appLoading.vue')['default']
-    ARadio: typeof import('@arco-design/web-vue')['Radio']
-    ARadioGroup: typeof import('@arco-design/web-vue')['RadioGroup']
-    ASpace: typeof import('@arco-design/web-vue')['Space']
     ATooltip: typeof import('@arco-design/web-vue')['Tooltip']
     Footer: typeof import('./src/components/layout/Footer.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']

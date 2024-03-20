@@ -8,8 +8,11 @@ export const useAuthStore = defineStore('auth', {
         _token: getToken() || '',
         _user: null,
         _forcastType: sessionStorage.getItem('forcastType') ?? 1, // 1 普通 2 股票
-        _userSelectType: sessionStorage.getItem('userSelectType') ?? null,
+        _userSelectType: sessionStorage.getItem('userSelectType') ? Number(sessionStorage.getItem('userSelectType')) : null,
         _forcastUserInput: sessionStorage.getItem('userInput') ?? '',
+
+        _userQuestion: sessionStorage.getItem('userQuestion') ?? '',
+        _orderno: sessionStorage.getItem('orderno') ?? '',
     }),
     getters: {
         googleUserInfo: (state) => state._googleUserInfo,
@@ -18,6 +21,8 @@ export const useAuthStore = defineStore('auth', {
         forcastType: state => state._forcastType,
         userSelectType: state => state._userSelectType,
         forcastUserInput: state => state._forcastUserInput,
+        userQuestion: state => state._userQuestion,
+        orderno: state => state._orderno,
     },
     actions: {
         setToken(t) {
@@ -28,6 +33,11 @@ export const useAuthStore = defineStore('auth', {
             this._googleUserInfo = info
         },
 
+        setoOrderno(orderno) {
+            this._orderno = orderno
+            sessionStorage.setItem('orderno', this._orderno)
+        },
+
         setForcastType(type) {
             this._forcastType = type
             sessionStorage.setItem('forcastType', this._forcastType)
@@ -36,6 +46,11 @@ export const useAuthStore = defineStore('auth', {
         setUserSelectType(type) {
             this._userSelectType = type
             sessionStorage.setItem('userSelectType', this._userSelectType)
+        },
+        
+        setUserQuestion(question) {
+            this._userQuestion = question
+            sessionStorage.setItem('userQuestion', this._userQuestion)
         },
 
         setForcastUserInput(number) {

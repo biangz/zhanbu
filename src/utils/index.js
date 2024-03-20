@@ -8,3 +8,7 @@ export const isvueComponent = (component) => {
     if (component.setup) return true;
     return false;
 }
+
+export function Console() {
+    console.log(...arguments)
+}

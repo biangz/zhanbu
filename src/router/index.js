@@ -68,9 +68,19 @@ let routes = [
     }
   },
   {
-    path: '/landing/form',
-    component: () => import("@/views/Mainland/form.vue"),
-    name: 'Form',
+    path: '/landing/pre',
+    component: () => import("@/views/Mainland/preview.vue"),
+    name: 'Preview',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
+    path: '/landing/result',
+    component: () => import("@/views/Mainland/result.vue"),
+    name: 'Result',
     meta: {
       loginRequired: false,
       keepAlive: true, // 需要缓存
