@@ -34,11 +34,11 @@ onMounted(() => {
             <nav class="flex items-center ml-auto gap-x-3 text-white">
                 <!-- Home Twitter Team LitePaper -->
                 <div class="cursor-pointer">Home</div>
-                <div class="cursor-pointer" @click="thirdLink('https://twitter.com/yuantaoxyz')">Twitter</div>
+                <!-- <div class="cursor-pointer" @click="thirdLink('https://twitter.com/yuantaoxyz')">Twitter</div> -->
                 <div class="cursor-pointer" @click="handleScrollTeam('team')">Team</div>
-                <div class="cursor-pointer" @click="thirdLink('https://lees-personal-organization.gitbook.io/yuan-dao-ai-yi-jing-shen-mi-yu-ce-xin-ji-yuan/')">LitePaper</div>
+                <!-- <div class="cursor-pointer" @click="thirdLink('https://lees-personal-organization.gitbook.io/yuan-dao-ai-yi-jing-shen-mi-yu-ce-xin-ji-yuan/')">LitePaper</div> -->
             </nav>
-            <a href="/home"><a-button shape="round">Launch APP</a-button></a>
+            <!-- <a href="/home"><a-button shape="round">Launch APP</a-button></a> -->
         </header>
 
         <main class="select-none">
@@ -270,6 +270,10 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section class="footer">
+                <p>京ICP备2024054794号</p>
             </section>
         </main>
     </div>
@@ -845,6 +849,12 @@ main {
                 line-height: 2;
             }
         }
+    }
+
+    .footer {
+        font-size: 24px;
+        text-align: center;
+        padding: 20px 0;
     }
 }
 
