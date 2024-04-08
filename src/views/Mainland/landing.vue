@@ -85,7 +85,7 @@ const handleGoto = (url: string) => {
 }
 
 onMounted(() => {
-    getTypeList()
+    // getTypeList()
 })
 </script>
 
@@ -131,7 +131,7 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <button class="Btn mt-6" @click="handleGoto('/landing/pre')"><span class="text">立即开始</span></button>
+                <button class="Btn mt-6" @click="handleGoto('/landing/pre')"><span class="text">19.9 购买</span></button>
             </section>
         </main>
     </div>
@@ -287,7 +287,7 @@ onMounted(() => {
                 transition-duration: 1s;
                 font-size: 60px;
                 overflow: hidden;
-                font-family: 'PangMenZhengDao';
+                // font-family: 'PangMenZhengDao';
                 animation: multiple 2s infinite;
 
                 .text {

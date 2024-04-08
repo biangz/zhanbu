@@ -273,7 +273,7 @@ onMounted(() => {
             </section>
 
             <section class="footer">
-                <p>京ICP备2024054794号</p>
+                <p><a class="text-white" target="_blank" href="https://beian.miit.gov.cn/">京ICP备2024054794号</a></p>
             </section>
         </main>
     </div>

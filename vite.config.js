@@ -59,8 +59,8 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/localapi': {
-        target: "http://192.168.1.102:8088",
-        // target: "https://yuantao.xyz",
+        // target: "http://192.168.1.102:8088",
+        target: "https://yuantao.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },
