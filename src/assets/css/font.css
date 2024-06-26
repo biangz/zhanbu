@@ -17,3 +17,8 @@
     font-family: 'PangMenZhengDao';
     src: url('../fonts/PangMenZhengDaoCuShuTi.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'ZhongQi';
+    src: url('../fonts/ZhongQiDuanNingXingShu.ttf') format('truetype');
+}

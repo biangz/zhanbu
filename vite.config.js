@@ -59,14 +59,12 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/localapi': {
-        // target: "http://192.168.1.102:8088",
-        target: "https://yuantao.xyz",
+        target: "https://app.yuantao1331.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },
       '/localwss': {
         target: "ws://localhost:8888",
-        // target: "wss://eli-api.fenus.xyz",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/localapi/, '')
       },

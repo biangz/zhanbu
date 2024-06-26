@@ -33,3 +33,25 @@ export function getResult(data = {}) {
         data: qs.stringify(data),
     });
 }
+
+export function wxPay(data = {}) {
+    return service({
+        url: `/api/v1/order/wx_pay`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+        data: qs.stringify(data),
+    });
+}
+
+export function orderList(data = {}) {
+    return service({
+        url: `/api/v1/order/order_list`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+        data: qs.stringify(data),
+    });
+}

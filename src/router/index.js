@@ -57,6 +57,7 @@ let routes = [
     }
   },
 
+  // Mainland 手机端
   {
     path: '/landing',
     component: () => import("@/views/Mainland/landing.vue"),
@@ -81,6 +82,36 @@ let routes = [
     path: '/landing/result',
     component: () => import("@/views/Mainland/result.vue"),
     name: 'Result',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
+    path: '/landing/order',
+    component: () => import("@/views/Mainland/order.vue"),
+    name: 'Order',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
+    path: '/landing/detail/:id',
+    component: () => import("@/views/Mainland/orderDetail.vue"),
+    name: 'Detail',
+    meta: {
+      loginRequired: false,
+      keepAlive: true, // 需要缓存
+      deepth: 0.1 // 定义路由的层级
+    }
+  },
+  {
+    path: '/wx/callback',
+    component: () => import("@/views/Mainland/callback.vue"),
+    name: 'Callback',
     meta: {
       loginRequired: false,
       keepAlive: true, // 需要缓存
@@ -114,7 +145,12 @@ router.beforeEach((to, from, next) => {
       authStore.userLoginInfo()
     }
 
-    next()
+    if (Boolean(localStorage.getItem('showCheck'))) { // 存在未检查的订单
+      next('/landing/pre')
+    } else {
+      next()
+    }
+
 
   } else {
     next()

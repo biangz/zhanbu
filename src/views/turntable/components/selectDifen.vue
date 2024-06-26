@@ -73,7 +73,7 @@ onMounted(() => {
 
         .type-item {
             font-size: 32px;
-            font-family: 'PangMenZhengDao';
+            font-family: 'ZhongQi';
             color: #FFF0BA;
             text-align: center;
             width: 178px;

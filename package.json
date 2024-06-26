@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --mode development",
     "build": "rm -f ./dist.zip && vite build --mode production && zip -r dist.zip dist",
-    "preview": "rm -f ./dist.zip && vite preview --mode staging && zip -r dist.zip dist"
+    "preview": "rm -f ./dist.zip && vite preview --mode staging && zip -r dist.zip dist",
+    "xh-report": "npm update xh-report"
   },
   "dependencies": {
     "@types/web-animations-js": "^2.2.16",
@@ -16,6 +17,7 @@
     "@web3modal/wagmi": "^3.1.0",
     "aos": "^2.3.4",
     "axios": "^1.5.1",
+    "dayjs": "^1.11.11",
     "decimal.js": "^10.4.3",
     "dotenv": "^16.3.1",
     "fonts.css": "^2.0.0",

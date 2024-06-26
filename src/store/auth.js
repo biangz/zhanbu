@@ -12,7 +12,9 @@ export const useAuthStore = defineStore('auth', {
         _forcastUserInput: sessionStorage.getItem('userInput') ?? '',
 
         _userQuestion: sessionStorage.getItem('userQuestion') ?? '',
-        _orderno: sessionStorage.getItem('orderno') ?? '',
+        _orderno: localStorage.getItem('orderno') ?? '',
+
+        _showBar: false,
     }),
     getters: {
         googleUserInfo: (state) => state._googleUserInfo,
@@ -23,6 +25,7 @@ export const useAuthStore = defineStore('auth', {
         forcastUserInput: state => state._forcastUserInput,
         userQuestion: state => state._userQuestion,
         orderno: state => state._orderno,
+        showBar: state => state._showBar
     },
     actions: {
         setToken(t) {
@@ -35,7 +38,11 @@ export const useAuthStore = defineStore('auth', {
 
         setoOrderno(orderno) {
             this._orderno = orderno
-            sessionStorage.setItem('orderno', this._orderno)
+            localStorage.setItem('orderno', this._orderno)
+        },
+
+        setShowBar(bar) {
+            this._showBar = bar
         },
 
         setForcastType(type) {

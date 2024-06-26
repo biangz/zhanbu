@@ -576,7 +576,7 @@ main {
                 padding-top: 55px;
                 h1 {
                     font-size: 56px;
-                    font-family: 'PangMenZhengDao';
+                    font-family: 'ZhongQi';
                     color: #FFF0BA;
                     text-align: center;
                 }

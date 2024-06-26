@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router';
 import { initTypeList, preOrder } from '../../api';
 import { Console } from '../../utils'
 import { useAuthStore } from '../../store'
+import Alert from '@/components/Alert.vue';
+import Assitant from './components/assistant.vue'
 
 interface ElementType {
   id: number;
@@ -13,11 +15,12 @@ interface ElementType {
   flag: number;
 }
 
+const showAlert = ref<boolean>(false)
 const orderLoading = ref<boolean>(false)
 const router = useRouter()
 const store = useAuthStore()
 const typeList = ref<ElementType[]>([])
-const number = ref<number | string>(1)
+const number = ref<number | string>(0)
 const turnQuestion = ref<string>('')
 const defaultQuestionList = ref<string[]>([
     '看看今年会不会遇到贵人帮助我在事业上发展?',
@@ -41,6 +44,10 @@ const handleCheckType = (type) => {
     store.setUserSelectType(type.id)
 }
 
+const handleCheckNumber = (n) => {
+    number.value = n
+}
+
 const changeBlur = () => {
     var u = navigator.userAgent, app = navigator.appVersion;
     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
@@ -54,12 +61,17 @@ const changeBlur = () => {
 
 const handleGoto = (url: string) => {
 
+    if (store.orderno) {
+        showAlert.value = Boolean(store.orderno)
+        return;
+    }
+
     if (orderLoading.value) return;
 
     if (!number.value) {
         Console(number.value)
         return Message.error({
-            content: '请输入你的幸运数字吧～'
+            content: '请选择你的幸运数字吧～'
         })
     }
     if (!turnQuestion.value) {
@@ -84,8 +96,19 @@ const handleGoto = (url: string) => {
     })
 }
 
+const userCancle = () => {
+    store.setoOrderno('')
+    localStorage.removeItem('showCheck')
+    showAlert.value = false
+}
+
+const userConfirm = () => {
+    router.push('/landing/pre')
+    showAlert.value = false
+}
+
 onMounted(() => {
-    // getTypeList()
+    getTypeList()
 })
 </script>
 
@@ -98,17 +121,11 @@ onMounted(() => {
             <img class="circle w-64 block" src="../../assets/images/banner01/bg-cirlce.webp" alt="">
             <section class="content">
                 <h1>元 · 道</h1>
-                <div class="percent flex items-center mx-auto">
-                    <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-left.png" alt="">
-                    <div class="relative number">95 <span class="sign">%</span></div>
-                    <img class="w-[1.36rem]" src="../../assets/images/banner01/percent-right.png" alt="">
-                </div>
-                <div class="sub">预测精准度</div>
-                <p class="des mt-5">“元”在古老而神秘的东方文字中是由“人”与“天”组合而成，东方文明中“天”即是宇宙万物。“元”描绘着人与宇宙的最初状态，也代表着人与命运的因果关系。</p>
+                <p class="des">“元”在古老而神秘的东方文字中是由“人”与“天”组合而成，东方文明中“天”即是宇宙万物。“元”描绘着人与宇宙的最初状态，也代表着人与命运的因果关系。</p>
                 <p class="des">“道”是万物的本初，是宇宙的第一推动，万事万物效法“道”而生，所以“道”是唯一的永恒不变的真理，是万事万物的内在客观规律。</p>
 
                 <div class="w-full p-2">
-                    <p class="question py-2">欲求哪一方面的事情：</p>
+                    <!-- <p class="question py-2">欲求哪一方面的事情：</p> -->
                     <div class="types">
                         <div 
                         class="type-item" 
@@ -118,22 +135,38 @@ onMounted(() => {
                         @click="handleCheckType(item)"
                         >{{ item.name_cn }}</div>
                     </div>
-                    <div class="flex items-center mt-2">
-                        <p class="question py-2">心中默想所求之事，写下数字：</p>
-                        <input class="input-number w-full flex-1" type="text" v-model="number" @blur.prevent="changeBlur" placeholder="心中默想所求之事，写下数字">
+                    <div class="mt-2">
+                        <p class="question py-2">心中默想所求之事，选择数字：</p>
+                        <div class="flex items-center justify-around">
+                            <div @click="handleCheckNumber(n)" class="number-btn" v-for="n in 10" :class="{'active': number == n}" :key="n">{{ n }}</div>
+                        </div>
+                        <!-- <input class="input-number w-full flex-1" type="text" v-model="number" @blur.prevent="changeBlur" placeholder="心中默想所求之事，写下数字"> -->
                     </div>
-                    <div>
-                        <p class="question py-2">写下你想问的问题吧：</p>
-                        <textarea class="input-number w-full flex-1" type="text" @blur.prevent="changeBlur" v-model="turnQuestion" placeholder="写下你想问的问题..."></textarea>
+                    <div class="mt-3">
+                        <!-- <p class="question py-2">写下你想问的问题吧：</p> -->
+                        <textarea class="input-number w-full flex-1" type="text" @blur.prevent="changeBlur" v-model="turnQuestion" placeholder="欲求何事..."></textarea>
                         <div v-if="!turnQuestion" class="flex items-center flex-wrap gap-2 mt-2">
                             <div class="preview-question" @click="turnQuestion = item" v-for="item,index in defaultQuestionList" :key="index">{{ item }}</div>
                         </div>
                     </div>
                 </div>
 
-                <button class="Btn mt-6" @click="handleGoto('/landing/pre')"><span class="text">19.9 购买</span></button>
+                <button class="Btn mt-6" :disabled="orderLoading" @click="handleGoto('/landing/pre')"><span class="text">立即测算</span></button>
             </section>
         </main>
+
+        <Assitant />
+
+        <Alert 
+            v-model="showAlert" 
+            title="未支付订单"
+            message="存在未支付订单，是否继续支付？"
+            cancle-text="重新下单"
+            confirm-text="去支付"
+            @close="userCancle"
+            @confirm="userConfirm"
+        />
+
     </div>
 </template>
 
@@ -165,12 +198,13 @@ onMounted(() => {
     min-height: 100vh;
     background: #000D2D;
     background: url('../../assets/images/banner01/bg-01.webp') no-repeat center bottom / cover;
+    font-family: 'ZhongQi';
 
     main {
         .circle {
             position: absolute;
             left: 50%;
-            top: 0;
+            top: -140px;
             animation: rotate 25s infinite linear;
             z-index: 0;
         }
@@ -189,23 +223,7 @@ onMounted(() => {
                 line-height: 1;
                 font-size: 3rem;
                 color: #E2E1FF;
-                margin-top: 2rem;
-            }
-
-            .percent {
-                font-family: 'DIN-Black';
-                font-size: 120px;
-                color: #CAF5FF;
-
-                .number {
-                    padding: 0 28px;
-                    line-height: 120px;
-
-                    .sign {
-                        margin-left: -24px;
-                        font-size: 40px;
-                    }
-                }
+                margin-top: 1rem;
             }
 
             .sub {
@@ -215,9 +233,9 @@ onMounted(() => {
             }
 
             .des {
-                font-size: 32px;
+                font-size: 46px;
                 text-align: center;
-                letter-spacing: 5px;
+                // letter-spacing: 5px;
                 color: white;
                 padding: 20px;
             }
@@ -230,8 +248,8 @@ onMounted(() => {
             }
 
             .type-item {
-                font-size: 32px;
-                font-family: 'PangMenZhengDao';
+                font-size: 42px;
+                font-family: 'ZhongQi';
                 color: #FFF0BA;
                 text-align: center;
                 padding: 18px 38px;
@@ -245,9 +263,23 @@ onMounted(() => {
             }
 
             .question {
-                font-size: 32px;
-                letter-spacing: 5px;
+                font-size: 42px;
                 color: white;
+            }
+
+            .number-btn {
+                font-size: 42px;
+                color: white;
+                width: 86px;
+                text-align: center;
+                border: 1px solid white;
+                border-radius: 99px;
+                line-height: 1;
+                padding: 20px 0;
+                &.active {
+                    background: white;
+                    color: black;
+                }
             }
 
             .input-number {
@@ -265,9 +297,10 @@ onMounted(() => {
             .preview-question {
                 background-color: white;
                 color: black;
-                font-size: 20px;
+                font-size: 32px;
                 padding: 12px 8px;
                 border-radius: 40px;
+                letter-spacing: -2px;
             }
 
             .Btn {
@@ -287,7 +320,6 @@ onMounted(() => {
                 transition-duration: 1s;
                 font-size: 60px;
                 overflow: hidden;
-                // font-family: 'PangMenZhengDao';
                 animation: multiple 2s infinite;
 
                 .text {
@@ -328,5 +360,7 @@ onMounted(() => {
            
         }
     }
+
+    
 }
 </style>

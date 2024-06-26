@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,    // 不进行any语法检查
+         "allowJs": true,    // 允许js
+    },
+    "include": [    
+        "src/**/*.js",  // 导入js
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "tests/**/*.ts",
+        "tests/**/*.tsx",
+        "public/config.js"  // 导入js
+    ]
+}
