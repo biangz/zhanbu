@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import * as dayjs from 'dayjs';
-import { reactive, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '../../store'
 import { orderList } from '../../api'
 import { useRoute, useRouter } from 'vue-router';
@@ -28,12 +27,32 @@ const getStatus = (status) => {
 }
 
 const gotoDetail = (v) => {
-    router.push({
-        name: 'Detail',
-        params: {
-            id: v.order_no
-        }
-    })
+    if (v.Status == 2) {
+        router.push({
+            name: 'Detail',
+            params: {
+                id: v.order_no
+            }
+        })
+    } else {
+        // Message.error({
+        //     content: '',
+        // });
+    }
+}
+
+const formatterCN = new Intl.DateTimeFormat("zh-CN", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+});
+
+const formatDate = (dates: string) => {
+    return formatterCN.format(new Date(dates))
 }
 
 onMounted(() => {
@@ -60,11 +79,11 @@ onMounted(() => {
             <div class="py-2">
                 <div class="flex items-center justify-between">
                     <div class="label">创建时间</div>
-                    <div class="value">{{ dayjs(item.create_at).format('YYYY-MM-DD HH:mm:ss') }}</div>
+                    <div class="value">{{ formatDate(item.create_at) }}</div>
                 </div>
                 <div class="flex items-center justify-between mt-1">
                     <div class="label">价格</div>
-                    <div class="value">{{ item.pay_amount }}</div>
+                    <div class="value">{{ (item.pay_amount / 100).toFixed(2) }}</div>
                 </div>
             </div>
         </div>

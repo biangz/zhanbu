@@ -62,7 +62,7 @@ onMounted(() => {
                     </div>
                     <div class="flex items-center justify-between mt-1">
                         <div class="label">价格</div>
-                        <div class="value">{{ info.pay_amount }}</div>
+                        <div class="value">{{ (info.pay_amount / 100).toFixed(2) }}</div>
                     </div>
                 </div>
             </div>
